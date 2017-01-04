@@ -1,0 +1,14 @@
+[class^="wp-chatbot-say-"] {
+  margin-bottom: 15px;
+  padding: 15px;
+  clear: both;
+}
+
+.wp-chatbot-say-bot {
+  float: left;
+  background-color: red;
+}
+.wp-chatbot-say-user {
+  float: right;
+  background-color: green;
+}

@@ -1,2 +1,3 @@
-# wp-chatbot
-Simple Wordpress Plugin to add any chatbot to your web page
+# WP chatbot
+
+A simple Wordpress plugin to connect to any chatbot
