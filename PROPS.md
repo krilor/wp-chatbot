@@ -7,3 +7,5 @@
  * https://premium.wpmudev.org/blog/using-ajax-with-wordpress/
 * Cookies in WordPress
  * https://premium.wpmudev.org/blog/set-get-delete-cookies/
+* JSONpath
+ * http://goessner.net/articles/JsonPath/

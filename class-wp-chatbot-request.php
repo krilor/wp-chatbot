@@ -8,16 +8,9 @@ class WP_Chatbot_Request {
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
-	private $url;
+	private $options;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    0.1.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $method;
+
 
 	/**
 	 * Initialize the class and set its properties.
@@ -25,61 +18,79 @@ class WP_Chatbot_Request {
 	 * @since    0.1.0
 	 */
 	public function __construct(  ) {
-    $this->url = 'https://api.motion.ai/1.0/messageBot';//'http://api.program-o.com/v2/chatbot/';
-    $this->method = 'GET';
+    $this->options = get_option('wp-chatbot-options-api');
 	}
-
-  public function setUrl( $url ){
-
-    if( '' == $url ){
-      return;
-    }
-
-    $this->url = esc_url( $url );
-
-  }
-
-  public function setMethod( $method ) {
-    if( in_array( $method, array( 'POST','GET','HEADER' ) ) ){
-      $this->method = $method;
-    }
-  }
 
   public function request( $message, $user, $conv ) {
     if('' == $message ){
-      return False;
+      return __( "Empty messages is hard to understand", 'wp-chatbot' );
     }
 
-    /*$params = array(
-      'bot_id' => '6',
-      'say' => $message,
-      'convo_id' => $conv,
-      'format' => 'json'
-    );*/
+		if ( !isset( $this->options['endpoint-url'] ) || !isset( $this->options['request-method'] )) {
+			return __( "I'm feeling sick today, so I am AFK", 'wp-chatbot' );
+		}
 
-    $params = array(
-      'bot' => 24983,
-      'msg' => $message,
-      'session' => $conv,
-      'key' => get_option('wp-chatbot-options-api')['api-key'] #Todo add check if exists
-    );
+		if ( !isset( $this->options['request-param-num'] ) || 0 == strlen( $this->options['request-param-num'] ) || !isset( $this->options['response-jsonpath'] ) ) {
+			return __( "I think you have the wrong number", 'wp-chatbot');
+		}
+
+		// Build params
+		$params = array();
+
+		for ( $i = 1; $i <= $this->options['request-param-num']; $i++ ) {
+
+			$option_id = sprintf( 'request-param-%d', $i);
+			if ( isset( $this->options[$option_id] ) && isset( $this->options[$option_id . '-val'] ) ) {
+
+				switch ( $this->options[$option_id . '-val'] ) {
+					case 'WP_CHATBOT_INPUT_MSG':
+						$value = $message;
+						break;
+					case 'WP_CHATBOT_CONV':
+						$value = $conv;
+						break;
+					default:
+						$value = $this->options[$option_id . '-val'];
+				}
+
+				$params[$this->options[$option_id]] = $value;
+			}
+
+		} // for
+
+		// Build headers
+		$headers = array();
+
+		for ( $i = 1; $i <= $this->options['request-headers-num']; $i++ ) {
+
+			$option_id = sprintf( 'request-headers-%d', $i);
+
+			if ( isset( $this->options[$option_id] ) && isset( $this->options[$option_id . '-val'] ) ) {
+
+				$headers[$this->options[$option_id]] = $this->options[$option_id . '-val'];
+			}
+
+		} // for
 
 
-    switch ( $this->method ){
-      case 'GET':
-        $response = wp_remote_get( $this->url . '?' . http_build_query( $params ) );
-        break;
+    switch ( $this->options['request-method'] ){
       case 'POST':
-        $response = wp_remote_post( $this->url, array( 'body' => $params ) );
+        $response = wp_safe_remote_post( $this->options['endpoint-url'], array( 'body' => $params, 'headers' => $headers ) );
         break;
-      default:
-        $response = False;
+      default: // GET
+				$response = wp_safe_remote_get( $this->options['endpoint-url'] . '?' . http_build_query( $params ), array( 'headers' => $headers ) );
+				break;
     }
+
+		//var_dump($response);
 
     if( is_array($response) ) {
-      // TODO: CHECK FOR SUCCESS and other error scenarios
+      // TODO: CHECK FOR SUCCESS and error scenarios
       $response_body = json_decode( wp_remote_retrieve_body ( $response ), true );
-      $bot_response = $response_body['botResponse'];
+			$bot_response = jsonPath($response_body, $this->options['response-jsonpath']);
+			
+      //$bot_response = $response_body[$this->options['response-key-msg']];
+			//$bot_response = $response_body['result']['fulfillment']['messages'][0]['speech'];
     }
 
     return $bot_response;

@@ -97,6 +97,11 @@ class WP_Chatbot {
 	private function load_dependencies() {
 
 		/**
+		 * JSONpath from asset folder
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'assets/jsonpath.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */

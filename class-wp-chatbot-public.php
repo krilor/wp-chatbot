@@ -97,6 +97,8 @@ class WP_Chatbot_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-pub.js', array( 'jquery' ), $this->version, true );
+		//wp_enqueue_script('animate-min', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/animate.min.css', array(), $this->version, true);
+
 
 		/* Localized JS variables */
 		wp_localize_script( 'wp-chatbot', 'wp_chatbot', array(
@@ -108,7 +110,19 @@ class WP_Chatbot_Public {
    * Add all shortcodes that are
    */
   public function chat_interface_shortcode( $atts ) {
-    return '<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
+
+
+		$html = '<div class="wrapper">';
+	  $html .= '<div class="inner" id="inner">';
+	  $html .= '<div class="content" id="wp-chatbot-content"></div>';
+	  $html .= '</div>';
+	  $html .= '<div class="bottom" id="bottom">';
+	  $html .= '<input type="text" class="input" id="input"></textarea>';
+		$html .= '<button class="send" id="send">' . __('Send','wp-chatbot') . '</button>';
+	  $html .= '</div>';
+		$html .= '</div>';
+		//'<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
+    return $html;
   }
 
   /**
@@ -140,9 +154,8 @@ class WP_Chatbot_Public {
 			$user = $_COOKIE[$user_var];
 		}
 		setcookie( $user_var, $user , time() + 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
-
 		$wpcr = new WP_Chatbot_Request();
-		$response = $wpcr->request($message, $user, $conv); // TODO: ADD proper response
+		$response = $wpcr->request($message, $user, $conv); // TODO: Check response and add filter
 
     echo json_encode( array(
 			'response' => $response,
