@@ -52,3 +52,8 @@ This plugin is still in development, and are still missing important error handl
 ## Contribute
 
 Fork, branch, pull request
+
+## Wordpress Coding Standards
+
+* `phpcs -p -s -v -n . --standard=codesniffer.ruleset.xml --extensions=php --ignore=./assets/,index.php > sniffer.log`
+* `phpcbf -p -s -v -n . --no-patch --standard=codesniffer.ruleset.xml --extensions=php --ignore=./assets/,index.php`

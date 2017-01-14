@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -9,8 +8,7 @@
  * @link       http://example.com
  * @since      0.1.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    WP-Chatbot
  */
 
 /**
@@ -41,7 +39,4 @@ class WP_Chatbot_i18n {
 		);
 
 	}
-
-
-
 }

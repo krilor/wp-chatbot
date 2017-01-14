@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -44,8 +43,8 @@ class WP_Chatbot_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    0.1.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -97,74 +96,69 @@ class WP_Chatbot_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-pub.js', array( 'jquery' ), $this->version, true );
-		//wp_enqueue_script('animate-min', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/animate.min.css', array(), $this->version, true);
-
-
+		// wp_enqueue_script('animate-min', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/animate.min.css', array(), $this->version, true);
 		/* Localized JS variables */
 		wp_localize_script( 'wp-chatbot', 'wp_chatbot', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' )
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		));
 	}
 
-  /**
-   * Add all shortcodes that are
-   */
-  public function chat_interface_shortcode( $atts ) {
-
+	/**
+	 * Add all shortcodes that are
+	 */
+	public function chat_interface_shortcode( $atts ) {
 
 		$html = '<div class="wrapper">';
-	  $html .= '<div class="inner" id="inner">';
-	  $html .= '<div class="content" id="wp-chatbot-content"></div>';
-	  $html .= '</div>';
-	  $html .= '<div class="bottom" id="bottom">';
-	  $html .= '<input type="text" class="input" id="input"></textarea>';
-		$html .= '<button class="send" id="send">' . __('Send','wp-chatbot') . '</button>';
-	  $html .= '</div>';
+		$html .= '<div class="inner" id="inner">';
+		$html .= '<div class="content" id="wp-chatbot-content"></div>';
 		$html .= '</div>';
-		//'<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
-    return $html;
-  }
+		$html .= '<div class="bottom" id="bottom">';
+		$html .= '<input type="text" class="input" id="input"></textarea>';
+		$html .= '<button class="send" id="send">' . __( 'Send','wp-chatbot' ) . '</button>';
+		$html .= '</div>';
+		$html .= '</div>';
+		// '<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
+		return $html;
+	}
 
-  /**
-   *
-   */
-  public function wp_chatbot_converse() {
+	/**
+	 * Ajax callback that passes message to API and back
+	 */
+	public function wp_chatbot_converse() {
 
-    $message = sanitize_text_field( $_POST['message'] );
+		$message = sanitize_text_field( $_POST['message'] );
 
 		/* Sessions and cookies */
-		if( !session_id() ) {
-        session_start();
-    }
+		if ( ! session_id() ) {
+		session_start();
+		}
 
 		$user_var = 'wp_chatbot_user';
 		$conv_var = 'wp_chatbot_conv';
 		// substr( md5( microtime() ), 0, 40 ) is used to generate a unique-ish id-string
-		if( !isset( $_SESSION[$conv_var] ) ) {
-			$conv = substr( md5( microtime() - rand(0, 50000) ), 0, 40 );
-			$_SESSION[$conv_var] = $conv;
-		} else {
-			$conv = $_SESSION[$conv_var];
-		}
+		if ( ! isset( $_SESSION[ $conv_var ] ) ) {
+			$conv = substr( md5( microtime() - rand( 0, 50000 ) ), 0, 40 );
+			$_SESSION[ $conv_var ] = $conv;
+			} else {
+			$conv = $_SESSION[ $conv_var ];
+			}
 
+		  if ( ! isset( $_COOKIE[ $user_var ] ) ) {
+			$user = substr( md5( microtime() - rand( 0, 50000 ) ), 0, 40 );
+			} else {
+		  $user = $_COOKIE[ $user_var ];
+			}
+		  setcookie( $user_var, $user , time() + 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+		  $wpcr = new WP_Chatbot_Request();
+		  $response = $wpcr->request( $message, $user, $conv ); // TODO: Check response and add filter
 
-		if( !isset( $_COOKIE[$user_var] ) ) {
-			$user = substr( md5( microtime() - rand(0, 50000) ), 0, 40 );
-		} else {
-			$user = $_COOKIE[$user_var];
-		}
-		setcookie( $user_var, $user , time() + 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
-		$wpcr = new WP_Chatbot_Request();
-		$response = $wpcr->request($message, $user, $conv); // TODO: Check response and add filter
-
-    echo json_encode( array(
+		echo json_encode( array(
 			'response' => $response,
 			'response_to' => $message,
 			'user_id' => $user,
-			'conv_id' => $conv
-		));
+			'conv_id' => $conv,
+		  ));
 
-		wp_die();
-  }
-
+		  wp_die();
+	}
 }

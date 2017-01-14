@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -111,7 +110,7 @@ class WP_Chatbot {
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path(  __FILE__  ) . 'class-wp-chatbot-i18n.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-wp-chatbot-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -183,12 +182,12 @@ class WP_Chatbot {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-    // Shortcodes
-    $this->loader->add_shortcode('wp-chatbot', $plugin_public, 'chat_interface_shortcode');
+	// Shortcodes
+	$this->loader->add_shortcode( 'wp-chatbot', $plugin_public, 'chat_interface_shortcode' );
 
-    // Ajax callbacks for conversation
-    $this->loader->add_action( 'wp_ajax_nopriv_wp_chatbot_converse', $plugin_public, 'wp_chatbot_converse' );
-    $this->loader->add_action( 'wp_ajax_wp_chatbot_converse', $plugin_public, 'wp_chatbot_converse' );
+	// Ajax callbacks for conversation
+	$this->loader->add_action( 'wp_ajax_nopriv_wp_chatbot_converse', $plugin_public, 'wp_chatbot_converse' );
+	$this->loader->add_action( 'wp_ajax_wp_chatbot_converse', $plugin_public, 'wp_chatbot_converse' );
 	}
 
 	/**
@@ -230,5 +229,4 @@ class WP_Chatbot {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

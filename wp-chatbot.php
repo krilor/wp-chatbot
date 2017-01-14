@@ -1,14 +1,22 @@
 <?php
-/*
-Plugin Name: WP Chatbot
-Plugin URI: https://wordpress.org/plugins/wp-chatbot/
-Description: Simple, yet powerful plugin to include any chatbot on your site
-Version: 0.1.0
-Author: Kristoffer Lorentsen
-Author URI: http://lorut.no
-Text Domain: wp-chatbot
-Domain Path: /languages
-*/
+/**
+ * WP Chatbot
+ *
+ * @package     WPChatbot
+ * @author      Kristoffer Lorentsen
+ * @copyright   2017 Kristoffer Lorentsen
+ * @license     GPL-3.0
+ *
+ * @wordpress-plugin
+ * Plugin Name: WP Chatbot
+ * Plugin URI: https://wordpress.org/plugins/wp-chatbot/
+ * Description: Simple, yet powerful plugin to include any chatbot on your site
+ * Version: 0.1.0
+ * Author: Kristoffer Lorentsen
+ * Author URI: http://lorut.no
+ * Text Domain: wp-chatbot
+ * Domain Path: /languages
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

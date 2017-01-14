@@ -1,11 +1,12 @@
 <?php
-/* JSONPath 0.8.1 - XPath for JSON
+/**
+ * JSONPath 0.8.1 - XPath for JSON
  *
  * Copyright (c) 2007 Stefan Goessner (goessner.net)
  * Licensed under the MIT (MIT-LICENSE.txt) licence.
  */
 
-// API function 
+// API function
 function jsonPath($obj, $expr, $args=null) {
    $jsonpath = new JsonPath();
    $jsonpath->resultType = ($args ? $args['resultType'] : "VALUE");
@@ -89,8 +90,8 @@ class JsonPath {
    function slice($loc, $expr, $v, $path) {
       $s = explode(":", preg_replace("/^(-?[0-9]*):(-?[0-9]*):?(-?[0-9]*)$/", "$1:$2:$3", $loc));
       $len=count($v);
-      $start=(int)$s[0]?$s[0]:0; 
-      $end=(int)$s[1]?$s[1]:$len; 
+      $start=(int)$s[0]?$s[0]:0;
+      $end=(int)$s[1]?$s[1]:$len;
       $step=(int)$s[2]?$s[2]:1;
       $start = ($start < 0) ? max(0,$start+$len) : min($len,$start);
       $end   = ($end < 0)   ? max(0,$end+$len)   : min($len,$end);
