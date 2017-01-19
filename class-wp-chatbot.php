@@ -96,6 +96,11 @@ class WP_Chatbot {
 	private function load_dependencies() {
 
 		/**
+		 * Validation functions
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'validation.php';
+
+		/**
 		 * JSONpath from asset folder
 		 */
 		require_once plugin_dir_path( __FILE__ ) . 'assets/jsonpath.php';
