@@ -98,7 +98,7 @@ class WP_Chatbot {
 		/**
 		 * Validation functions
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'validation.php';
+		require_once plugin_dir_path( __FILE__ ) . 'validate-and-sanetize.php';
 
 		/**
 		 * JSONpath from asset folder
