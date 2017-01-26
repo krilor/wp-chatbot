@@ -193,14 +193,14 @@ jQuery(document).ready(function ( $ ) {
             sendMessage();
         }
     });
-});
 
-jQuery('#chatbot-launcher-icon').click(function(){
-    jQuery('.chatbot-wrapper').show();
-    jQuery(this).hide();
-});
+    $('#chatbot-launcher-icon').click( function(){
+        $('.chatbot-livechat-wrapper').show();
+        $(this).hide();
+    });
 
-jQuery('.chatbot-wrapper .close').click(function(){
-    jQuery('#chatbot-launcher-icon').show();
-    jQuery('.chatbot-wrapper').hide();
+    $('.chatbot-livechat-wrapper .close').click(function(){
+        $('#chatbot-launcher-icon').show();
+        $('.chatbot-livechat-wrapper').hide();
+    });
 });

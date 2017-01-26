@@ -108,24 +108,34 @@ class WP_Chatbot_Public {
 	 */
 	public function chat_interface_shortcode( $atts ) {
 
-		$options = get_option( 'wp-chatbot-options-api' );
-		$title = $options['chatbot-title'];
-		$intro = $options['chatbot-intro'];
-
 		$html = '<div class="chatbot-wrapper">';
-		$html .= '<div class="top-bar"><div class="title">'.$title.'</div><div class="close"></div></div>';
 		$html .= '<div class="inner" id="inner">';
-		$html .= '<div class="content" id="wp-chatbot-content"><div id="intro-message">'.$intro.'</div></div>';
+		$html .= '<div class="content" id="wp-chatbot-content"></div>';
 		$html .= '</div>';
 		$html .= '<div class="bottom" id="bottom">';
 		$html .= '<input type="text" class="input" id="input"></textarea>';
 		$html .= '<button class="send" id="send">' . __( 'Send','wp-chatbot' ) . '</button>';
 		$html .= '</div>';
 		$html .= '</div>';
-		$html .= '<div id="chatbot-launcher-icon"></div>';
 		// '<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
 		return $html;
 	}
+
+
+	public function chat_interface_livechat( $atts ) {
+
+		$options = get_option( 'wp-chatbot-options-general' );
+		$title = $options['chatbot-title'];
+
+		$html = '<div class="chatbot-livechat-wrapper">';
+		$html .= '<div class="top-bar"><div class="title">'.$title.'</div><div class="close"></div></div>';
+		$html .= $this->chat_interface_shortcode( array() );
+		$html .= '</div>';
+		$html .= '<div id="chatbot-launcher-icon"></div>';
+
+		echo $html;
+	}
+
 
 	/**
 	 * Ajax callback that passes message to API and back

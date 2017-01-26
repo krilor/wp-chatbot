@@ -143,11 +143,19 @@ class WP_Chatbot_Admin {
 				)
 		);
 
+		register_setting(
+			'wp-chatbot-options-general', // group/page slug slug
+			'wp-chatbot-options-general', // setting name
+			array(
+				'sanetize_callback' => array( $this, 'santize_callback_api' ),
+				)
+		);
+
 		add_settings_section(
-			$this->plugin_name . '-general-section',	// ID used to identify this section and with which to register options
-			__( 'API Settings', 'wp-chatbot' ),		// Title to be displayed on the administration page
+			'wp-chatbot-section-general',	// ID used to identify this section and with which to register options
+			__( 'General settings', 'wp-chatbot' ),		// Title to be displayed on the administration page
 			'__return_false',	// Callback used to render the description of the section
-			$this->plugin_name . '-options-general'		// Page on which to add this section of options
+			'wp-chatbot-options-general'		// Page on which to add this section of options
 		);
 
 
@@ -155,26 +163,36 @@ class WP_Chatbot_Admin {
 			'chatbot-title', // id
 			__( 'Title', 'wp-chatbot' ), // Label
 			array( $this, 'general_setting_callback' ), // display callback
-			$this->plugin_name . '-options-general', // page
-			$this->plugin_name . '-general-section', // section
+			'wp-chatbot-options-general', // page
+			'wp-chatbot-section-general',	 // section
 			array(	// args for callback
 				'desc' => __( 'Chatbot Title', 'wp-chatbot' ),
 				'id' => 'chatbot-title',
 				'type' => 'text',
+				'setting' => 'wp-chatbot-options-general'
 			)
 		);
 
 		add_settings_field(
-			'chatbot-intro', // id
-			__( 'Intro Message', 'wp-chatbot' ), // Label
+			'chatbot-livechat', // id
+			__( 'Chatbot livechat', 'wp-chatbot' ), // Label
 			array( $this, 'general_setting_callback' ), // display callback
-			$this->plugin_name . '-options-general', // page
-			$this->plugin_name . '-general-section', // section
+			'wp-chatbot-options-general', // page
+			'wp-chatbot-section-general',	 // section
 			array(	// args for callback
-				'desc' => __( 'Chatbot intro message', 'wp-chatbot' ),
-				'id' => 'chatbot-intro',
+				'desc' => __( 'YES/NO Add chatbot livechat button', 'wp-chatbot' ),
+				'id' => 'chatbot-livechat',
 				'type' => 'text',
+				'setting' => 'wp-chatbot-options-general'
 			)
+		);
+
+
+		add_settings_section(
+			$this->plugin_name . '-general-section',	// ID used to identify this section and with which to register options
+			__( 'API Settings', 'wp-chatbot' ),		// Title to be displayed on the administration page
+			'__return_false',	// Callback used to render the description of the section
+			$this->plugin_name . '-options-general'		// Page on which to add this section of options
 		);
 
 		add_settings_field(
@@ -320,26 +338,27 @@ class WP_Chatbot_Admin {
 	 * Print general input elements
 	 */
 	public function general_setting_callback( $args ) {
-		$options = get_option( $this->plugin_name . '-options-api' );
 
 		$defaults = array(
 			'id' => null,
 			'type' => 'text',
 			'description' => '',
+			'setting' => 'wp-chatbot-options-api'
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
+		$options = get_option( $args['setting'] );
+
 		$args['value'] = isset( $args['id'] ) && isset( $options[ $args['id'] ] ) ? $options[ $args['id'] ] : '';
 
 		printf(
-			'<input name="%s-options-api[%s]" id="%s" type="%s" value="%s" /> <span class="%s-setting-desc">%s',
-			$this->plugin_name,
+			'<input name="%s[%s]" id="%s" type="%s" value="%s" /> <span class="wp-chatbot-setting-desc">%s',
+			$args['setting'],
 			$args['id'],
 			$args['id'],
 			$args['type'],
 			$args['value'],
-			$this->plugin_name,
 			$args['desc']
 		);
 	}
