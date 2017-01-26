@@ -131,10 +131,7 @@ jQuery(document).ready(function ( $ ) {
         }, 350);
     }
     function scrollBottom() {
-        $content.animate({ scrollTop: $($content).offset().top + $($content).outerHeight(true) }, {
-            queue: false,
-            duration: 'ease'
-        });
+        jQuery('.chatbot-wrapper #inner').scrollTop(jQuery('#wp-chatbot-content').height());
     }
     function buildSent(message) {
         console.log('sending: ', message.text);
@@ -196,4 +193,14 @@ jQuery(document).ready(function ( $ ) {
             sendMessage();
         }
     });
+});
+
+jQuery('#chatbot-launcher-icon').click(function(){
+    jQuery('.chatbot-wrapper').show();
+    jQuery(this).hide();
+});
+
+jQuery('.chatbot-wrapper .close').click(function(){
+    jQuery('#chatbot-launcher-icon').show();
+    jQuery('.chatbot-wrapper').hide();
 });

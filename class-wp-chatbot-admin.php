@@ -150,6 +150,33 @@ class WP_Chatbot_Admin {
 			$this->plugin_name . '-options-general'		// Page on which to add this section of options
 		);
 
+
+		add_settings_field(
+			'chatbot-title', // id
+			__( 'Title', 'wp-chatbot' ), // Label
+			array( $this, 'general_setting_callback' ), // display callback
+			$this->plugin_name . '-options-general', // page
+			$this->plugin_name . '-general-section', // section
+			array(	// args for callback
+				'desc' => __( 'Chatbot Title', 'wp-chatbot' ),
+				'id' => 'chatbot-title',
+				'type' => 'text',
+			)
+		);
+
+		add_settings_field(
+			'chatbot-intro', // id
+			__( 'Intro Message', 'wp-chatbot' ), // Label
+			array( $this, 'general_setting_callback' ), // display callback
+			$this->plugin_name . '-options-general', // page
+			$this->plugin_name . '-general-section', // section
+			array(	// args for callback
+				'desc' => __( 'Chatbot intro message', 'wp-chatbot' ),
+				'id' => 'chatbot-intro',
+				'type' => 'text',
+			)
+		);
+
 		add_settings_field(
 			'endpoint-url', // id
 			__( 'API Url', 'wp-chatbot' ), // Label
