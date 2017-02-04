@@ -96,6 +96,11 @@ class WP_Chatbot {
 	private function load_dependencies() {
 
 		/**
+		 * Validation functions
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'validate-and-sanetize.php';
+
+		/**
 		 * JSONpath from asset folder
 		 */
 		require_once plugin_dir_path( __FILE__ ) . 'assets/jsonpath.php';
@@ -188,7 +193,7 @@ class WP_Chatbot {
 
 		$options_general = get_option( 'wp-chatbot-options-general' );
 
-		if ( isset( $options_general[ 'chatbot-livechat']) and $options_general[ 'chatbot-livechat'] == 'YES' ) {
+		if ( isset( $options_general[ 'chatbot-livechat']) and $options_general[ 'chatbot-livechat'] == '1' ) {
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'chat_interface_livechat' );
 		} else {
 			$this->loader->add_shortcode( 'wp-chatbot', $plugin_public, 'chat_interface_shortcode' );
