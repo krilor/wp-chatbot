@@ -108,7 +108,7 @@ class WP_Chatbot_Public {
 	 */
 	public function chat_interface_shortcode( $atts ) {
 
-		$html = '<div class="wrapper">';
+		$html = '<div class="chatbot-wrapper">';
 		$html .= '<div class="inner" id="inner">';
 		$html .= '<div class="content" id="wp-chatbot-content"></div>';
 		$html .= '</div>';
@@ -120,6 +120,22 @@ class WP_Chatbot_Public {
 		// '<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
 		return $html;
 	}
+
+
+	public function chat_interface_livechat( $atts ) {
+
+		$options = get_option( 'wp-chatbot-options-general' );
+		$title = $options['chatbot-title'];
+
+		$html = '<div class="chatbot-livechat-wrapper">';
+		$html .= '<div class="top-bar"><div class="title">'.$title.'</div><div class="close"></div></div>';
+		$html .= $this->chat_interface_shortcode( array() );
+		$html .= '</div>';
+		$html .= '<div id="chatbot-launcher-icon"></div>';
+
+		echo $html;
+	}
+
 
 	/**
 	 * Ajax callback that passes message to API and back
