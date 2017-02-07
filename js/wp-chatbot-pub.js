@@ -127,7 +127,7 @@ jQuery(document).ready(function ( $ ) {
     }
     function animateText() {
         setTimeout(function () {
-            $content.find('.message-wrapper').last().find('.text-wrapper').addClass('animated fadeIn');
+            $content.find('.message-wrapper').find('.text-wrapper').addClass('animated fadeIn');
         }, 350);
     }
     function scrollBottom() {

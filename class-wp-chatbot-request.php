@@ -39,15 +39,15 @@ class WP_Chatbot_Request {
 	 */
 	public function request( $message, $user, $conv ) {
 		if ( '' == $message ) {
-			return __( 'Empty messages is hard to understand', 'wp-chatbot' );
+			return array( __( 'Empty messages is hard to understand', 'wp-chatbot' ));
 		}
 
 		if ( ! isset( $this->options['endpoint-url'] ) || ! isset( $this->options['request-method'] ) ) {
-			return __( "I'm feeling sick today, so I am AFK", 'wp-chatbot' );
+			return array(__( "I'm feeling sick today, so I am AFK", 'wp-chatbot' ));
 			}
 
 		if ( ! isset( $this->options['request-param-num'] ) || 0 == strlen( $this->options['request-param-num'] ) || ! isset( $this->options['response-jsonpath'] ) ) {
-			return __( 'I think you have the wrong number', 'wp-chatbot' );
+			return array( __( 'I think you have the wrong number', 'wp-chatbot' ) );
 			}
 
 		// Build params
