@@ -335,7 +335,6 @@ class WP_Chatbot_Admin {
 	 * @return array Sanetized options
 	 */
 	public function sanitize_callback_request( $option ) {
-		var_dump($option);
 		// Response jsonpath
 
 		foreach ( $option as $setting => $value ) {
@@ -385,8 +384,6 @@ class WP_Chatbot_Admin {
 		<form method="post" action="options.php">
 
 		<?php
-		$options = get_option( 'wp-chatbot-options-request' );
-		var_dump($options);
 
 		settings_fields( 'wp-chatbot-options-general' );
 		do_settings_sections( 'wp-chatbot-options-general' ); 	// pass slug name of page

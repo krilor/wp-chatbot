@@ -33,15 +33,15 @@ function _classCallCheck(instance, Constructor) {
 }
 
 /**
- * Messenger
+ * WPChatbotMessenger
  *
  * Will hold the messenger functionality
  * On wrapper functions for private properties http://arjanvandergaag.nl/blog/javascript-class-pattern.html
  */
-var Messenger = function () {
+var WPChatbotMessenger = function () {
 
-    function Messenger(element) {
-        _classCallCheck(this, Messenger); // only create instance of class
+    function WPChatbotMessenger(element) {
+        _classCallCheck(this, WPChatbotMessenger); // only create instance of class
         this.element = typeof element !== 'undefined' ? element : '#wp-chatbot-content'; // default content element
 
         // Private properties
@@ -66,7 +66,7 @@ var Messenger = function () {
     }
 
 
-    Messenger.prototype.send = function send() {
+    WPChatbotMessenger.prototype.send = function send() {
         var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
         text = this.filter(text);
@@ -80,7 +80,7 @@ var Messenger = function () {
             this.onSend(message);
         }
     };
-    Messenger.prototype.recieve = function recieve() {
+    WPChatbotMessenger.prototype.recieve = function recieve() {
         var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
         text = this.filter(text);
         if (this.validate(text)) {
@@ -93,29 +93,29 @@ var Messenger = function () {
             this.onRecieve(message);
         }
     };
-    Messenger.prototype.delete = function _delete(index) {
+    WPChatbotMessenger.prototype.delete = function _delete(index) {
         index = index || this.messageLength - 1;
         var deleted = this.messageLength.pop();
         this.deletedList.push(deleted);
         this.onDelete(deleted);
     };
-    Messenger.prototype.filter = function filter(input) {
+    WPChatbotMessenger.prototype.filter = function filter(input) {
         var output = input.replace('bad input', 'good output');
         return output;
     };
-    Messenger.prototype.validate = function validate(input) {
+    WPChatbotMessenger.prototype.validate = function validate(input) {
         return !!input.length;
     };
 
-    Messenger.prototype.buildMessage = function buildMessage(text, who) {
+    WPChatbotMessenger.prototype.buildMessage = function buildMessage(text, who) {
       return '<div class="message-wrapper ' + who + '">\n<div class="circle-wrapper animated bounceIn"></div>\n<div class="text-wrapper">'+ text + '</div>\n</div>';
     }
 
-    return Messenger;
+    return WPChatbotMessenger;
 }();
 
 jQuery(document).ready(function ( $ ) {
-    var messenger = new Messenger();
+    var messenger = new WPChatbotMessenger();
 
     var $content = $('#wp-chatbot-content')
     var $input = $('#input');

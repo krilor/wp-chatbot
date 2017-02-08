@@ -4,11 +4,12 @@
  *
  * Copyright (c) 2007 Stefan Goessner (goessner.net)
  * Licensed under the MIT (MIT-LICENSE.txt) licence.
+ * Prefixed for the WP-chatbot plugin
  */
 
 // API function
-function jsonPath($obj, $expr, $args=null) {
-   $jsonpath = new JsonPath();
+function wp_chatbot_jsonpath($obj, $expr, $args=null) {
+   $jsonpath = new WP_Chatbot_JsonPath();
    $jsonpath->resultType = ($args ? $args['resultType'] : "VALUE");
    $x = $jsonpath->normalize($expr);
    $jsonpath->obj = $obj;
@@ -22,7 +23,7 @@ function jsonPath($obj, $expr, $args=null) {
 }
 
 // JsonPath class (internal use only)
-class JsonPath {
+class WP_Chatbot_JsonPath {
    var $obj = null;
    var $resultType = "Value";
    var $result = array();
