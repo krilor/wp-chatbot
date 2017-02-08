@@ -150,7 +150,7 @@ jQuery(document).ready(function ( $ ) {
     function sendMessage() {
         var text = $input.val();
 
-        // Only send it there is actual input
+        // Only send if there is actual input
         if ( text == '' ) {
           console.log('No message');
           return;
@@ -167,10 +167,18 @@ jQuery(document).ready(function ( $ ) {
             message : text
           },
           success : function( response ) {
+
             response = JSON.parse(response);
-            for ( var i in response['response'] ) {
-                messenger.recieve( response['response'][i] );
+
+            if ( response[ 'status' ] == 'OK' && $.isArray( response[ 'response' ] ) && response[ 'response'].length > 0 ) {
+
+              for ( var i in response['response'] ) {
+                  messenger.recieve( response['response'][i] );
+              }
+
             }
+
+
 
           }
         });

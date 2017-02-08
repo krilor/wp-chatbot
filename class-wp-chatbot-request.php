@@ -31,13 +31,14 @@ class WP_Chatbot_Request {
 	 * @since    0.1.0
 	 */
 	public function __construct() {
-	$this->options = get_option( 'wp-chatbot-options-api' );
+		$this->options = get_option( 'wp-chatbot-options-request' );
 	}
 
 	/**
 	 * Makes the request to the external API
 	 */
 	public function request( $message, $user, $conv ) {
+
 		if ( '' == $message ) {
 			return array( __( 'Empty messages is hard to understand', 'wp-chatbot' ));
 		}
@@ -98,11 +99,12 @@ class WP_Chatbot_Request {
 				break;
 		}
 
-		// var_dump($response);
+
 		if ( is_array( $response ) ) {
 			// TODO: CHECK FOR SUCCESS and error scenarios
+
 			$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
-			$bot_response = wp_chatbot_jsonpath( $response_body, $this->options['response-jsonpath'] );
+			$bot_response = wp_chatbot_jsonpath( $response_body, sanetize_text_field( $this->options['response-jsonpath'] ) );
 
 			// $bot_response = $response_body[$this->options['response-key-msg']];
 			// $bot_response = $response_body['result']['fulfillment']['messages'][0]['speech'];
