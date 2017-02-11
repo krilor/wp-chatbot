@@ -137,6 +137,8 @@ class WP_Chatbot_Public {
 	}
 
 
+
+
 	/**
 	 * Ajax callback that passes message to API and back
 	 */
@@ -154,14 +156,14 @@ class WP_Chatbot_Public {
 
 		// substr( md5( microtime() ), 0, 40 ) is used to generate a unique-ish id-string
 		if ( ! isset( $_SESSION[ $conv_var ] ) ) {
-			$conv = substr( md5( microtime() - rand( 0, 50000 ) ), 0, 40 );
+			$conv = wp_chatbot_generate_unique_key();
 			$_SESSION[ $conv_var ] = $conv;
 		} else {
 			$conv = $_SESSION[ $conv_var ];
 		}
 
 	  if ( ! isset( $_COOKIE[ $user_var ] ) ) {
-			$user = substr( md5( microtime() - rand( 0, 50000 ) ), 0, 40 );
+			$user = wp_chatbot_generate_unique_key();
 		} else {
 	  	$user = $_COOKIE[ $user_var ];
 		}
@@ -171,7 +173,7 @@ class WP_Chatbot_Public {
 	  $response = $wpcr->request( $message, $user, $conv ); // TODO: Check response and add filter
 
 		echo json_encode( apply_filters( 'wp_chatbot_response_output', array(
-			'status' => 'OK',
+			'response_code' => 'RESPONSE',
 			'response' => $response,
 			'response_to' => $message,
 			'user_id' => $user,

@@ -95,6 +95,12 @@ class WP_Chatbot {
 	 */
 	private function load_dependencies() {
 
+
+		/**
+		 * Utils
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'utils.php';
+
 		/**
 		 * Validation functions
 		 */

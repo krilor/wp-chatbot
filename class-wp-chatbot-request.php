@@ -104,7 +104,7 @@ class WP_Chatbot_Request {
 			// TODO: CHECK FOR SUCCESS and error scenarios
 
 			$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
-			$bot_response = wp_chatbot_jsonpath( $response_body, sanetize_text_field( $this->options['response-jsonpath'] ) );
+			$bot_response = wp_chatbot_jsonpath( $response_body, sanitize_text_field( $this->options['response-jsonpath'] ) );
 
 			// $bot_response = $response_body[$this->options['response-key-msg']];
 			// $bot_response = $response_body['result']['fulfillment']['messages'][0]['speech'];

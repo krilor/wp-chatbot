@@ -170,7 +170,7 @@ jQuery(document).ready(function ( $ ) {
 
             response = JSON.parse(response);
 
-            if ( response[ 'status' ] == 'OK' && $.isArray( response[ 'response' ] ) && response[ 'response'].length > 0 ) {
+            if ( response[ 'response_code' ] == 'RESPONSE' && $.isArray( response[ 'response' ] ) && response[ 'response'].length > 0 ) {
 
               for ( var i in response['response'] ) {
                   messenger.recieve( response['response'][i] );
