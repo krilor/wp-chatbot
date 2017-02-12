@@ -113,7 +113,20 @@ class WP_Chatbot_Conversation {
 
  public function say( $message ){
 
-	 $wpcr = new WP_Chatbot_Request();
+	 $options = get_option( 'wp-chatbot-options-general' );
+
+	 if ( isset( $options[ 'integration-type' ] ) && class_exists( $options[ 'integration-type' ] ) ) {
+
+		 $class = $options[ 'integration-type' ];
+
+	 } else {
+
+		 $class = 'WP_Chatbot_Request';
+
+	 }
+
+	 $wpcr = new $class();
+
 	 $response = $wpcr->request( $message, $this->user, $this->conversation ); // TODO: Check response and add filter
 
 	 return $response;

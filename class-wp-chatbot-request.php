@@ -86,6 +86,21 @@ class WP_Chatbot_Request {
 	 */
 	public function __construct( ) {
 
+		$this->add_options();
+
+		// Set up response
+		$this->response = array();
+		$this->response_code = 'RESPONSE';
+
+	}
+
+	/**
+	 * Add the options needed for the request
+	 *
+	 * To be overwritten by child classes.
+	 */
+	private function add_options( ){
+
 		$this->options = get_option( 'wp-chatbot-options-request' );
 
 		// Url
@@ -118,10 +133,6 @@ class WP_Chatbot_Request {
 			}
 
 		} // for
-
-		// Set up response
-		$this->response = array();
-		$this->response_code = 'RESPONSE';
 
 	}
 

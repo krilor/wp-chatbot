@@ -169,6 +169,26 @@ class WP_Chatbot_Admin {
 			)
 		);
 
+		$integrationtypes = apply_filters( 'wp_chatbot_integration_types', array(
+			'WP_Chatbot_Request' => __( 'Generic request settings', 'wp-chatbot' )
+		) );
+
+
+		add_settings_field(
+			'integration-type', // id
+			__( 'Integration type', 'wp-chatbot' ), // Label
+			array( $this, 'display_input_selection' ), // display callback
+			'wp-chatbot-options-general', // page
+			'wp-chatbot-section-general',	 // section
+			array(	// args for callback
+				'desc' => __( 'Integration', 'wp-chatbot' ),
+				'id' => 'integration-type',
+				'type' => 'radio',
+				'values' => $integrationtypes,
+				'setting' => 'wp-chatbot-options-general'
+			)
+		);
+
 
 		add_settings_section(
 			'wp-chatbot-general-section',	// ID used to identify this section and with which to register options
