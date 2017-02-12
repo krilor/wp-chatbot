@@ -152,7 +152,7 @@ jQuery(document).ready(function ( $ ) {
 
         // Only send if there is actual input
         if ( text == '' ) {
-          console.log('No message');
+          console.log('WP Chatbot ERROR: No message');
           return;
         }
 
@@ -168,12 +168,29 @@ jQuery(document).ready(function ( $ ) {
           },
           success : function( response ) {
 
-            response = JSON.parse(response);
+            if ( $.isArray( response[ 'response' ] )  && response[ 'response'].length > 0 ) {
 
-            if ( response[ 'response_code' ] == 'RESPONSE' && $.isArray( response[ 'response' ] ) && response[ 'response'].length > 0 ) {
+              if ( response[ 'response_code' ] == 'RESPONSE' ) {
 
-              for ( var i in response['response'] ) {
-                  messenger.recieve( response['response'][i] );
+                for ( var i in response['response'] ) {
+
+                    messenger.recieve( response['response'][i]['message'] );
+                }
+
+              } else if ( response[ 'response_code' ] == 'ERROR' ) {
+
+                for ( var i in response['response'] ) {
+
+                    console.log( 'WP Chatbot ERROR: ' + response['response'][i]['message'] );
+
+                }
+
+              }
+
+            } else {
+
+              if ( response[ 'response_code' ] != 'SILENT' ) {
+                console.log( 'WP Chatbot ERROR: Silent response is not marked as such' );
               }
 
             }

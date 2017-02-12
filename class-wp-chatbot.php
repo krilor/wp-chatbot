@@ -139,6 +139,11 @@ class WP_Chatbot {
 		 */
 		require_once plugin_dir_path( __FILE__ ) . 'class-wp-chatbot-request.php';
 
+		/**
+		 * The class responsible for storing a conversation
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'class-wp-chatbot-conversation.php';
+
 		$this->loader = new WP_Chatbot_Loader();
 
 	}
