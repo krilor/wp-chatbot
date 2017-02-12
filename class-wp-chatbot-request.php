@@ -150,12 +150,20 @@ class WP_Chatbot_Request {
 		}
 
 	}
-
+	/**
+	 * Replace header and param values where there are special strings
+	 *
+	 * @param string $old Old string
+	 * @param string $new New string that replaces old
+	 *
+	 */
 	public function replace_special_value( $old, $new ){
 
 		foreach ( $this->params as $param => $value ){
 			if ( $value == $old ){
+
 				$this->params[ $param ] = $new;
+
 			}
 		}
 
@@ -226,7 +234,6 @@ class WP_Chatbot_Request {
 				'type' => 'text'
 			) );
 			$this->response_code = 'ERROR';
-			return $this->get_response();
 
 		}
 
@@ -249,31 +256,67 @@ class WP_Chatbot_Request {
 				break;
 		}
 
+		// Validate response
 
-		if ( is_array( $response ) ) {
-			// TODO: CHECK FOR SUCCESS and error scenarios
+		if ( is_wp_error( $response ) ){
 
-			$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+			$this->response_code = 'ERROR';
+			$this->add_response( array(
+				'message' => $response->get_error_message(),
+				'type' => 'text'
+			) );
 
-			if ( !$response_body ){
+			return $this->get_response();
 
-				$this->add_response( array(
-					'message' => __( 'No response body from external API.', 'wp-chatbot' ),
-					'type' => 'text'
-				) );
-				$this->response_code = 'ERROR';
-				return $this->get_response();
+		} else if ( ! is_array( $response ) ) {
 
+			$this->response_code = 'ERROR';
+			$this->add_response( array(
+				'message' => __( 'The remote request was unsuccessful', 'wp-chatbot' ),
+				'type' => 'text'
+			) );
+
+			return $this->get_response();
+
+		}
+
+
+		$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( !$response_body ){
+
+			$this->add_response( array(
+				'message' => __( 'No response body from external API.', 'wp-chatbot' ),
+				'type' => 'text'
+			) );
+			$this->response_code = 'ERROR';
+			return $this->get_response();
+
+		}
+
+		if ( isset( $this->options['response-jsonpath'] ) && "" != $this->options['response-jsonpath'] ){
+
+			$bot_responses = wp_chatbot_jsonpath( $response_body, $this->options['response-jsonpath'] );
+
+			if( is_array( $bot_responses ) ) {
+
+				foreach ( $bot_responses as $bot_response ){
+					$this->add_response(  array(
+						'message' => $bot_response,
+						'type' => 'text'
+					) );
+				}
+
+			} else {
+				$this->response_code = 'SILENT';
 			}
 
-			$bot_responses = wp_chatbot_jsonpath( $response_body, sanitize_text_field( $this->options['response-jsonpath'] ) );
 
-			foreach ( $bot_responses as $bot_response ){
-				$this->add_response(  array(
-					'message' => $bot_response,
-					'type' => 'text'
-				) );
-			}
+
+		} else {
+
+			$this->response_code = 'SILENT';
+
 		}
 
 		return $this->get_response();

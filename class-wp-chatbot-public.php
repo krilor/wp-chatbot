@@ -148,9 +148,9 @@ class WP_Chatbot_Public {
 
 		wp_send_json( apply_filters( 'wp_chatbot_response_output', array_merge( $response, array(
 			'user_id' => $wcc->user,
-			'conv_id' => $wcc->conversation
+			'conv_id' => $wcc->conversation,
+			'response_to' => $message
 		))));
-
-		  wp_die();
+		
 	}
 }
