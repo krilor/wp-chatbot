@@ -138,23 +138,25 @@ class WP_Chatbot_Request {
 
 	/**
 	 * Replace header and param values where there are special strings
+	 *
+	 * @param array $values Old => new pair
 	 */
-	public function replace_special_values( $message, $user, $conv ) {
+	public function replace_special_values( $values = array() ) {
+
+		foreach ( $values as $key => $value ){
+
+				$this->replace_special_value( $key, $value );
+
+		}
+
+	}
+
+	public function replace_special_value( $old, $new ){
 
 		foreach ( $this->params as $param => $value ){
-
-			switch ( $value ) {
-				case 'WP_CHATBOT_INPUT_MSG':
-					$this->params[ $param ] = $message;
-					break;
-				case 'WP_CHATBOT_CONV':
-					$this->params[ $param ] = $conv;
-					break;
-				case 'WP_CHATBOT_USER':
-					$this->params[ $param ] = $user;
-					break;
+			if ( $value == $old ){
+				$this->params[ $param ] = $new;
 			}
-
 		}
 
 	}
@@ -229,7 +231,13 @@ class WP_Chatbot_Request {
 		}
 
 
-		$this->replace_special_values( $message, $user, $conv );
+		$special_values = apply_filters( 'wp_chatbot_special_values', array(
+			'WP_CHATBOT_INPUT_MSG' => $message,
+			'WP_CHATBOT_CONV' => $conv,
+			'WP_CHATBOT_USER' => $user
+		));
+
+		$this->replace_special_values( $special_values );
 
 
 		switch ( $this->method ) {
