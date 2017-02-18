@@ -151,6 +151,6 @@ class WP_Chatbot_Public {
 			'conv_id' => $wcc->conversation,
 			'response_to' => $message
 		))));
-		
+
 	}
 }

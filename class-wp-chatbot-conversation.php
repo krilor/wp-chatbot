@@ -127,7 +127,7 @@ class WP_Chatbot_Conversation {
 
 	 $wpcr = new $class();
 
-	 $response = $wpcr->request( $message, $this->user, $this->conversation ); // TODO: Check response and add filter
+	 $response = $wpcr->request( $message, $this->user, $this->conversation );
 
 	 return $response;
 
