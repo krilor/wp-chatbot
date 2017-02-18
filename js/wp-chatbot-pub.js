@@ -1,29 +1,3 @@
-(function($) {
-/*
-  $('.wp-chatbot-button').on('click', function() {
-
-    var input = $('#wp-chatbot-input');
-    var message = input.val();
-    input.val('');
-
-    $('.wp-chatbot-text').append('<span class="wp-chatbot-say-user">'+message+'</span>');
-
-  	jQuery.ajax({
-  		url : wp_chatbot.ajax_url,
-  		type : 'post',
-  		data : {
-  			action : 'wp_chatbot_converse',
-        message : message
-  		},
-  		success : function( response ) {
-        response = JSON.parse(response);
-  			$('.wp-chatbot-text').append('<span class="wp-chatbot-say-bot">'+response['response']+'</span>');;
-  		}
-  	});
-  }) */
-
-})( jQuery );
-
 
 'use strict';
 function _classCallCheck(instance, Constructor) {
@@ -173,7 +147,6 @@ jQuery(document).ready(function ( $ ) {
               if ( response[ 'response_code' ] == 'RESPONSE' ) {
 
                 for ( var i in response['response'] ) {
-
                     messenger.recieve( response['response'][i]['message'] );
                 }
 
@@ -197,7 +170,10 @@ jQuery(document).ready(function ( $ ) {
 
 
 
-          }
+        },
+        error : function( response ) {
+          console.log('WP Chatbot ERROR: Error in AJAX call or unable to parse result');
+        }
         });
 
         $input.focus();

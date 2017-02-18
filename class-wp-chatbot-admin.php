@@ -1,4 +1,4 @@
-wp-chatbot-section-request<?php
+<?php
 /**
  * The admin-specific functionality of the plugin.
  *
