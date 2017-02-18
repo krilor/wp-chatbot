@@ -1,4 +1,4 @@
-<?php
+wp-chatbot-section-request<?php
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -107,9 +107,9 @@ class WP_Chatbot_Admin {
 					  __( 'WP Chatbot Settings','wp-chatbot' ), // page title
 					  'WP Chatbot', // menu title
 					  'manage_options', // role
-					  'wp-chatbot-options-general', // page slug
+					  'wp-chatbot-options', // page slug
 					  array( $this, 'display_options_page' ) ); // callback
-	}
+					}
 
 	/**
 	 * Registers settings for admin panel
@@ -118,7 +118,7 @@ class WP_Chatbot_Admin {
 
 		// register setting
 		register_setting(
-			'wp-chatbot-options-general', // group/page slug slug
+			'wp-chatbot-options-request', // group slug
 			'wp-chatbot-options-request', // setting name
 			array(
 				'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
@@ -126,7 +126,7 @@ class WP_Chatbot_Admin {
 		);
 
 		register_setting(
-			'wp-chatbot-options-general', // group/page slug slug
+			'wp-chatbot-options-general', // group slug
 			'wp-chatbot-options-general', // setting name
 			array(
 				'sanetize_callback' => array( $this, 'santize_callback_general' ),
@@ -191,18 +191,18 @@ class WP_Chatbot_Admin {
 
 
 		add_settings_section(
-			'wp-chatbot-general-section',	// ID used to identify this section and with which to register options
+			'wp-chatbot-section-request',	// ID used to identify this section and with which to register options
 			__( 'Request Settings', 'wp-chatbot' ),		// Title to be displayed on the administration page
 			'__return_false',	// Callback used to render the description of the section
-			'wp-chatbot-options-general'		// Page on which to add this section of options
+			'wp-chatbot-options-request'		// Page on which to add this section of options
 		);
 
 		add_settings_field(
 			'endpoint-url', // id
 			__( 'Request Url', 'wp-chatbot' ), // Label
 			array( $this, 'display_input_generic' ), // display callback
-			'wp-chatbot-options-general', // page
-			'wp-chatbot-general-section', // section
+			'wp-chatbot-section-request', // page
+			'wp-chatbot-section-request', // section
 			array(	// args for callback
 				'desc' => __( 'The url endpoint for the Chatbot', 'wp-chatbot' ),
 				'id' => 'endpoint-url',
@@ -214,8 +214,8 @@ class WP_Chatbot_Admin {
 			'request-method', // id
 			__( 'Request method', 'wp-chatbot' ), // Label
 			array( $this, 'display_input_selection' ), // display callback
-			'wp-chatbot-options-general', // page
-			'wp-chatbot-general-section', // section
+			'wp-chatbot-options-request', // page
+			'wp-chatbot-section-request', // section
 			array(	// args for callback
 				'desc' => __( 'GET or POST', 'wp-chatbot' ),
 				'id' => 'request-method',
@@ -231,8 +231,8 @@ class WP_Chatbot_Admin {
 			'request-param-num',						// ID used to identify the field throughout the plugin
 			__( 'Number of request parameters', 'wp-chatbot' ),							// The label to the left of the option interface element
 			array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-			'wp-chatbot-options-general',	// The page on which this option will be displayed
-			'wp-chatbot-general-section',			// The name of the section to which this field belongs
+			'wp-chatbot-options-request',	// The page on which this option will be displayed
+			'wp-chatbot-section-request',			// The name of the section to which this field belongs
 			array(								// The array of arguments to pass to the callback. In this case, just a description.
 				'desc' => __( 'Num', 'wp-chatbot' ),
 				'id' => 'request-param-num',
@@ -253,8 +253,8 @@ class WP_Chatbot_Admin {
 				$option_id,						// ID used to identify the field throughout the plugin
 				sprintf( __( 'Request parameter #%d', 'wp-chatbot' ), $i ),							// The label to the left of the option interface element
 				array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-				'wp-chatbot-options-general',	// The page on which this option will be displayed
-				'wp-chatbot-general-section',			// The name of the section to which this field belongs
+				'wp-chatbot-options-request',	// The page on which this option will be displayed
+				'wp-chatbot-section-request',			// The name of the section to which this field belongs
 				array(								// The array of arguments to pass to the callback. In this case, just a description.
 					'desc' => __( 'Parameter name', 'wp-chatbot' ),
 					'id' => $option_id,
@@ -266,8 +266,8 @@ class WP_Chatbot_Admin {
 				$option_id . '-val',						// ID used to identify the field throughout the plugin
 				sprintf( __( 'Request parameter #%d value', 'wp-chatbot' ), $i ),							// The label to the left of the option interface element
 				array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-				'wp-chatbot-options-general',	// The page on which this option will be displayed
-				'wp-chatbot-general-section',			// The name of the section to which this field belongs
+				'wp-chatbot-options-request',	// The page on which this option will be displayed
+				'wp-chatbot-section-request',			// The name of the section to which this field belongs
 				array(								// The array of arguments to pass to the callback. In this case, just a description.
 					'desc' => __( 'Parameter value', 'wp-chatbot' ),
 					'id' => $option_id . '-val',
@@ -282,8 +282,8 @@ class WP_Chatbot_Admin {
 			'request-headers-num',						// ID used to identify the field throughout the plugin
 			__( 'Number of request headers', 'wp-chatbot' ),							// The label to the left of the option interface element
 			array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-			'wp-chatbot-options-general',	// The page on which this option will be displayed
-			'wp-chatbot-general-section',			// The name of the section to which this field belongs
+			'wp-chatbot-options-request',	// The page on which this option will be displayed
+			'wp-chatbot-section-request',			// The name of the section to which this field belongs
 			array(								// The array of arguments to pass to the callback. In this case, just a description.
 				'desc' => __( 'Num', 'wp-chatbot' ),
 				'id' => 'request-headers-num',
@@ -302,8 +302,8 @@ class WP_Chatbot_Admin {
 				$option_id,						// ID used to identify the field throughout the plugin
 				sprintf( __( 'Request header #%d', 'wp-chatbot' ), $i ),							// The label to the left of the option interface element
 				array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-				'wp-chatbot-options-general',	// The page on which this option will be displayed
-				'wp-chatbot-general-section',			// The name of the section to which this field belongs
+				'wp-chatbot-options-request',	// The page on which this option will be displayed
+				'wp-chatbot-section-request',			// The name of the section to which this field belongs
 				array(								// The array of arguments to pass to the callback. In this case, just a description.
 					'desc' => __( 'Header name', 'wp-chatbot' ),
 					'id' => $option_id,
@@ -315,8 +315,8 @@ class WP_Chatbot_Admin {
 				$option_id . '-val',						// ID used to identify the field throughout the plugin
 				sprintf( __( 'Request header #%d value', 'wp-chatbot' ), $i ),							// The label to the left of the option interface element
 				array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-				'wp-chatbot-options-general',	// The page on which this option will be displayed
-				'wp-chatbot-general-section',			// The name of the section to which this field belongs
+				'wp-chatbot-options-request',	// The page on which this option will be displayed
+				'wp-chatbot-section-request',			// The name of the section to which this field belongs
 				array(								// The array of arguments to pass to the callback. In this case, just a description.
 					'desc' => __( 'Header value', 'wp-chatbot' ),
 					'id' => $option_id . '-val',
@@ -330,20 +330,13 @@ class WP_Chatbot_Admin {
 			'response-jsonpath',						// ID used to identify the field throughout the plugin
 			__( 'Response JSONpath', 'wp-chatbot' ),							// The label to the left of the option interface element
 			array( $this, 'display_input_generic' ),	// The name of the function responsible for rendering the option interface
-			'wp-chatbot-options-general',	// The page on which this option will be displayed
+			'wp-chatbot-options-request',	// The page on which this option will be displayed
 			'wp-chatbot-general-section',			// The name of the section to which this field belongs
 			array(								// The array of arguments to pass to the callback. In this case, just a description.
 				'desc' => __( 'The <a href="http://goessner.net/articles/JsonPath/">JSONpath</a> of the message in the returned JSON.', 'wp-chatbot' ),
 				'id' => 'response-jsonpath',
 				'type' => 'text',
 			)
-		);
-
-		add_settings_section(
-			'wp-chatbot-test-request-section',	// ID used to identify this section and with which to register options
-			__( 'Test the settings', 'wp-chatbot' ),		// Title to be displayed on the administration page
-			array( $this, 'display_request_test' ),	// Callback used to render the description of the section
-			'wp-chatbot-options-general'		// Page on which to add this section of options
 		);
 
 	}
@@ -398,16 +391,45 @@ class WP_Chatbot_Admin {
 	 */
 	public function display_options_page() {
 
+		$page = 'wp-chatbot-options';
+
+		$active_tab = isset( $_GET[ 'tab' ] ) ? $active_tab = $_GET[ 'tab' ] : 'general';
+
+		$tabs = apply_filters( 'wp-chatbot-settings-tabs', array(
+			'general' => __('General', 'wp-chatbot'),
+			'request' => __('Request', 'wp-chatbot')
+		) );
+
 		?>
 		<div class="wrap">
- 		<h1><?php _e('WP Chatbot','wp-chatbot');?></h1>
+
+		<h1><?php _e('WP Chatbot Settings','wp-chatbot');?></h1>
+
+		<h2 class="nav-tab-wrapper">
+		<?php
+			foreach ( $tabs as $tab => $name ) {
+				printf( '<a href="?page=%s&amp;tab=%s" class="nav-tab %s">%s</a>',
+								$page,
+								$tab,
+								$tab == $active_tab ? 'nav-tab-active' : '',
+								$name );
+			}
+		?>
+		</h2>
+
+
 		<form method="post" action="options.php">
 
 		<?php
 
-		settings_fields( 'wp-chatbot-options-general' );
-		do_settings_sections( 'wp-chatbot-options-general' ); 	// pass slug name of page
-		submit_button();
+			submit_button();
+
+			$pagetab = $page . '-' . $active_tab;
+
+			settings_fields( $pagetab );
+			do_settings_sections( $pagetab );
+
+			submit_button();
 
 		?>
 		</form>
