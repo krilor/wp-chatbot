@@ -397,7 +397,7 @@ class WP_Chatbot_Admin {
 	 * General options page
 	 */
 	public function display_options_page() {
-		// include( plugin_dir_path( __FILE__ ) . 'partials/options-page.php' );
+
 		?>
 		<div class="wrap">
  		<h1><?php _e('WP Chatbot','wp-chatbot');?></h1>
@@ -419,8 +419,9 @@ class WP_Chatbot_Admin {
 	 * Display a test area
 	 */
 	public function display_request_test() {
-		// include( plugin_dir_path( __FILE__ ) . 'partials/options-page.php' );
-		//do_shortcode('[wp-chatbot]');
+
+		// test
+		return False;
 
 	}
 
