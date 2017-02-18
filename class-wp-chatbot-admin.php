@@ -128,7 +128,7 @@ class WP_Chatbot_Admin {
 		add_settings_section(
 			'wp-chatbot-section-general',
 			__( 'General settings', 'wp-chatbot' ),
-			'__return_false',
+			array( $this, 'display_section_info_general'),
 			'wp-chatbot-options-general'
 		);
 
@@ -199,8 +199,8 @@ class WP_Chatbot_Admin {
 
 		add_settings_section(
 			'wp-chatbot-section-request',
-			__( 'Request Settings', 'wp-chatbot' ),
-			'__return_false',
+			__( 'Generic Integration Settings', 'wp-chatbot' ),
+			array( $this, 'display_section_info_request'),
 			'wp-chatbot-options-request'
 		);
 
@@ -422,7 +422,7 @@ class WP_Chatbot_Admin {
 		 */
 		$tabs = apply_filters( 'wp-chatbot-options-tabs', array(
 			'general' => __('General', 'wp-chatbot'),
-			'request' => __('Request', 'wp-chatbot')
+			'request' => __('Integration', 'wp-chatbot')
 		) );
 
 		?>
@@ -564,4 +564,14 @@ class WP_Chatbot_Admin {
 		}
 
 	}
+
+	/** Callback for generic integration settings description
+	 *
+	 */
+	 public function display_section_info_general(){
+		 echo '<p>'.__('General settings for the WP Chatbot.','wp-chatbot' ) . '</p>';
+	 }
+	 public function display_section_info_request(){
+		 echo '<p>'.__('The generic integration settings can be used for creating any request and response mapping.','wp-chatbot' ) . '</p>';
+	 }
 }
