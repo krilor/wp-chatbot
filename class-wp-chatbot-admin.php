@@ -143,7 +143,8 @@ class WP_Chatbot_Admin {
 				'desc' => __( 'Chatbot Title', 'wp-chatbot' ),
 				'id' => 'chatbot-title',
 				'type' => 'text',
-				'setting' => 'wp-chatbot-options-general'
+				'setting' => 'wp-chatbot-options-general',
+				'classes' => 'regular-text'
 			)
 		);
 
@@ -213,7 +214,8 @@ class WP_Chatbot_Admin {
 				'desc' => __( 'The url endpoint for the Chatbot', 'wp-chatbot' ),
 				'id' => 'endpoint-url',
 				'type' => 'text',
-				'setting' => 'wp-chatbot-options-request'
+				'setting' => 'wp-chatbot-options-request',
+				'classes' => 'large-text'
 			)
 		);
 
@@ -282,7 +284,8 @@ class WP_Chatbot_Admin {
 					'desc' => __( 'Parameter value', 'wp-chatbot' ),
 					'id' => $option_id . '-val',
 					'type' => 'text',
-					'setting' => 'wp-chatbot-options-request'
+					'setting' => 'wp-chatbot-options-request',
+					'classes' => 'regular-text'
 				)
 			);
 
@@ -333,7 +336,8 @@ class WP_Chatbot_Admin {
 					'desc' => __( 'Header value', 'wp-chatbot' ),
 					'id' => $option_id . '-val',
 					'type' => 'text',
-					'setting' => 'wp-chatbot-options-request'
+					'setting' => 'wp-chatbot-options-request',
+					'classes' => 'regular-text'
 				)
 			);
 
@@ -349,7 +353,8 @@ class WP_Chatbot_Admin {
 				'desc' => __( 'The <a href="http://goessner.net/articles/JsonPath/">JSONpath</a> of the message in the returned JSON.', 'wp-chatbot' ),
 				'id' => 'response-jsonpath',
 				'type' => 'text',
-				'setting' => 'wp-chatbot-options-request'
+				'setting' => 'wp-chatbot-options-request',
+				'classes' => 'regular-text'
 			)
 		);
 
@@ -477,7 +482,8 @@ class WP_Chatbot_Admin {
 			'min' => 0,
 			'max' => 20,
 			'value' => '',
-			'setting' => null
+			'setting' => null,
+			'classes' => ''
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -515,13 +521,14 @@ class WP_Chatbot_Admin {
 		}
 
 		printf(
-			'<input name="%s[%s]" id="%s" type="%s" value="%s" %s /> <span class="wp-chatbot-setting-desc">%s</span>',
+			'<input name="%s[%s]" id="%s" type="%s" value="%s" %s class="%s"/> <span class="wp-chatbot-setting-desc description">%s</span>',
 			$args['setting'],
 			$args['id'],
 			$args['id'] + ( 'radio' == $args[ 'type' ] ? $args[ 'value' ] : '' ),
 			$args['type'],
 			$args['value'],
 			$attrs,
+			$args['classes'],
 			$args['desc']
 		);
 	}
@@ -538,7 +545,8 @@ class WP_Chatbot_Admin {
 			'type' => 'radio',
 			'multiple' => false, // if the user can select multiple values
 			'values' => array(), // value - description pairs
-			'setting' => null
+			'setting' => null,
+			'classes' => ''
 		);
 
 		$args = wp_parse_args( $args, $defaults );
