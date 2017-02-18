@@ -95,6 +95,12 @@ class WP_Chatbot {
 	 */
 	private function load_dependencies() {
 
+
+		/**
+		 * Utils
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'utils.php';
+
 		/**
 		 * Validation functions
 		 */
@@ -132,6 +138,11 @@ class WP_Chatbot {
 		 * The class responsible for doing requests to Chatbot APIs
 		 */
 		require_once plugin_dir_path( __FILE__ ) . 'class-wp-chatbot-request.php';
+
+		/**
+		 * The class responsible for storing a conversation
+		 */
+		require_once plugin_dir_path( __FILE__ ) . 'class-wp-chatbot-conversation.php';
 
 		$this->loader = new WP_Chatbot_Loader();
 
