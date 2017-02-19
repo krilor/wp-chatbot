@@ -169,8 +169,8 @@ class WP_Chatbot_Admin {
 		 * Used for storing the generic request options
 		 */
 		register_setting(
-			'wp-chatbot-options-request',
 			'wp-chatbot-options-integration',
+			'wp-chatbot-options-request',
 			array(
 				'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
 				)
