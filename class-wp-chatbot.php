@@ -174,7 +174,7 @@ class WP_Chatbot {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new WP_Chatbot_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new WP_Chatbot_Admin();
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

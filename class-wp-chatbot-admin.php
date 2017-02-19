@@ -21,35 +21,14 @@
  */
 class WP_Chatbot_Admin {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
+	 * @since    0.1.0
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+	 */
+	public function __construct( ) {
 
 	}
 
@@ -72,7 +51,7 @@ class WP_Chatbot_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-chatbot-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'wp-chatbot', plugin_dir_url( __FILE__ ) . 'css/wp-chatbot-admin.css', array(), '0.1.0', 'all' );
 
 	}
 
@@ -95,7 +74,7 @@ class WP_Chatbot_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'wp-chatbot', plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-admin.js', array( 'jquery' ), '0.1.0', false );
 
 	}
 
@@ -191,7 +170,7 @@ class WP_Chatbot_Admin {
 		 */
 		register_setting(
 			'wp-chatbot-options-request',
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			array(
 				'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
 				)
@@ -201,14 +180,14 @@ class WP_Chatbot_Admin {
 			'wp-chatbot-section-request',
 			__( 'Generic Integration Settings', 'wp-chatbot' ),
 			array( $this, 'display_section_info_request'),
-			'wp-chatbot-options-request'
+			'wp-chatbot-options-integration'
 		);
 
 		add_settings_field(
 			'endpoint-url',
 			__( 'Request Url', 'wp-chatbot' ),
 			array( $this, 'display_input_generic' ),
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			'wp-chatbot-section-request',
 			array(
 				'desc' => __( 'The url endpoint for the Chatbot', 'wp-chatbot' ),
@@ -223,7 +202,7 @@ class WP_Chatbot_Admin {
 			'request-method',
 			__( 'Request method', 'wp-chatbot' ),
 			array( $this, 'display_input_selection' ),
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			'wp-chatbot-section-request',
 			array(
 				'desc' => __( 'GET or POST', 'wp-chatbot' ),
@@ -241,7 +220,7 @@ class WP_Chatbot_Admin {
 			'request-param-num',
 			__( 'Number of request parameters', 'wp-chatbot' ),
 			array( $this, 'display_input_generic' ),
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			'wp-chatbot-section-request',
 			array(
 				'desc' => __( 'Num', 'wp-chatbot' ),
@@ -264,7 +243,7 @@ class WP_Chatbot_Admin {
 				$option_id,
 				sprintf( __( 'Request parameter #%d', 'wp-chatbot' ), $i ),
 				array( $this, 'display_input_generic' ),
-				'wp-chatbot-options-request',
+				'wp-chatbot-options-integration',
 				'wp-chatbot-section-request',
 				array(
 					'desc' => __( 'Parameter name', 'wp-chatbot' ),
@@ -278,7 +257,7 @@ class WP_Chatbot_Admin {
 				$option_id . '-val',
 				sprintf( __( 'Request parameter #%d value', 'wp-chatbot' ), $i ),
 				array( $this, 'display_input_generic' ),
-				'wp-chatbot-options-request',
+				'wp-chatbot-options-integration',
 				'wp-chatbot-section-request',
 				array(
 					'desc' => __( 'Parameter value', 'wp-chatbot' ),
@@ -296,7 +275,7 @@ class WP_Chatbot_Admin {
 			'request-headers-num',
 			__( 'Number of request headers', 'wp-chatbot' ),
 			array( $this, 'display_input_generic' ),
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			'wp-chatbot-section-request',
 			array(
 				'desc' => __( 'Num', 'wp-chatbot' ),
@@ -316,7 +295,7 @@ class WP_Chatbot_Admin {
 				$option_id,
 				sprintf( __( 'Request header #%d', 'wp-chatbot' ), $i ),
 				array( $this, 'display_input_generic' ),
-				'wp-chatbot-options-request',
+				'wp-chatbot-options-integration',
 				'wp-chatbot-section-request',
 				array(
 					'desc' => __( 'Header name', 'wp-chatbot' ),
@@ -330,7 +309,7 @@ class WP_Chatbot_Admin {
 				$option_id . '-val',
 				sprintf( __( 'Request header #%d value', 'wp-chatbot' ), $i ),
 				array( $this, 'display_input_generic' ),
-				'wp-chatbot-options-request',
+				'wp-chatbot-options-integration',
 				'wp-chatbot-section-request',
 				array(
 					'desc' => __( 'Header value', 'wp-chatbot' ),
@@ -347,7 +326,7 @@ class WP_Chatbot_Admin {
 			'response-jsonpath',
 			__( 'Response JSONpath', 'wp-chatbot' ),
 			array( $this, 'display_input_generic' ),
-			'wp-chatbot-options-request',
+			'wp-chatbot-options-integration',
 			'wp-chatbot-section-request',
 			array(
 				'desc' => __( 'The <a href="http://goessner.net/articles/JsonPath/">JSONpath</a> of the message in the returned JSON.', 'wp-chatbot' ),
@@ -420,9 +399,9 @@ class WP_Chatbot_Admin {
 		 *
 		 * To add tab - append slug => name pair.
 		 */
-		$tabs = apply_filters( 'wp-chatbot-options-tabs', array(
+		$tabs = apply_filters( 'wp_chatbot_options_tabs', array(
 			'general' => __('General', 'wp-chatbot'),
-			'request' => __('Integration', 'wp-chatbot')
+			'integration' => __('Integration', 'wp-chatbot')
 		) );
 
 		?>
