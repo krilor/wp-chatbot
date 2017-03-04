@@ -99,17 +99,17 @@ class WP_Chatbot {
 		/**
 		 * Utils
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'utils.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/utils.php';
 
 		/**
 		 * Validation functions
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'validate-and-sanetize.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/validate-and-sanetize.php';
 
 		/**
 		 * JSONpath from asset folder
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'assets/jsonpath.php';
+		require_once plugin_dir_path( __DIR__ ) . 'assets/jsonpath.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the

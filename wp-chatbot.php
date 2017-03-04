@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'class-wp-chatbot.php';
+require plugin_dir_path( __FILE__ ) . 'classes/class-wp-chatbot.php';
 
 /**
  * Begins execution of the plugin.

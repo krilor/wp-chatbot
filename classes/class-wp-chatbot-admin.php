@@ -51,7 +51,7 @@ class WP_Chatbot_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( 'wp-chatbot', plugin_dir_url( __FILE__ ) . 'css/wp-chatbot-admin.css', array(), '0.1.0', 'all' );
+		wp_enqueue_style( 'wp-chatbot', plugin_dir_url( __DIR__ ) . 'css/wp-chatbot-admin.css', array(), '0.1.0', 'all' );
 
 	}
 
@@ -74,7 +74,7 @@ class WP_Chatbot_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( 'wp-chatbot', plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-admin.js', array( 'jquery' ), '0.1.0', false );
+		wp_enqueue_script( 'wp-chatbot', plugin_dir_url( __DIR__ ) . 'js/wp-chatbot-admin.js', array( 'jquery' ), '0.1.0', false );
 
 	}
 
