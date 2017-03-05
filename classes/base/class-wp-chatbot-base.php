@@ -5,10 +5,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WP_Chatbot_base' ) ):
+if ( ! class_exists( 'WP_Chatbot_Base' ) ):
 
-class WP_Chatbot_base {
-  /* Singleton */
+class WP_Chatbot_Base {
 
   /**
    * The one and only plugin instance
@@ -78,6 +77,15 @@ class WP_Chatbot_base {
     );
 
   }
+
+	public function require( $filename ){
+
+		$filepath = $this->path . ( '/' == $filename[0] ? '' : '/' ) . $filename;
+
+		if( file_exists( $filepath ) )
+			require_once $filepath;
+
+	}
 
 }
 

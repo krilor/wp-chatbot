@@ -24,10 +24,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
-* Base classes must be included first
+* Base classes
 */
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.php';
-
+require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-admin-base.php';
+require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-message.php';
 
 /**
  * The core plugin class.
@@ -45,6 +46,9 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.p
  */
 class WP_Chatbot extends WP_Chatbot_Base {
 	/* Singleton */
+
+	private $admin;
+	private $public;
 
 	/**
 	 * Main plugin class instance
@@ -69,10 +73,18 @@ class WP_Chatbot extends WP_Chatbot_Base {
 
 		parent::__construct();
 
-		require_once $this->path . '/classes/class-wp-chatbot-admin.php' ;
-		require_once $this->path . '/classes/class-wp-chatbot-public.php' ;
-		require_once $this->path . '/classes/class-wp-chatbot-request.php' ;
-		require_once $this->path . '/classes/class-wp-chatbot-conversation.php' ;
+		$this->require( '/assets/jsonpath.php' );
+
+		$this->require( '/includes/validate-and-sanetize.php' );
+		$this->require( '/includes/utils.php' );
+
+		$this->require( '/classes/class-wp-chatbot-admin.php' ) ;
+		$this->require( '/classes/class-wp-chatbot-public.php' );
+		$this->require( '/classes/class-wp-chatbot-request.php' );
+		$this->require( '/classes/class-wp-chatbot-conversation.php' );
+
+		$this->admin = new WP_Chatbot_Admin();
+		$this->public = new WP_Chatbot_Public( $this->slug, $this->version );
 
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -89,14 +101,12 @@ class WP_Chatbot extends WP_Chatbot_Base {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new WP_Chatbot_Admin();
-
-		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_scripts' ) );
 
 		// Menus
-		add_action( 'admin_menu', array( $plugin_admin, 'admin_menu' ) );
-		add_action( 'admin_init', array( $plugin_admin, 'register_settings' ) );
+		add_action( 'admin_menu', array( $this->admin, 'admin_menu' ) );
+		add_action( 'admin_init', array( $this->admin, 'register_settings' ) );
 	}
 
 	/**
@@ -108,21 +118,19 @@ class WP_Chatbot extends WP_Chatbot_Base {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new WP_Chatbot_Public( $this->slug, $this->version );
-
-		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $plugin_public, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this->public, 'enqueue_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this->public, 'enqueue_scripts' ) );
 
 		// Ajax callbacks for conversation
-		add_action( 'wp_ajax_nopriv_wp_chatbot_converse', array( $plugin_public, 'wp_chatbot_converse' ) );
-		add_action( 'wp_ajax_wp_chatbot_converse', array( $plugin_public, 'wp_chatbot_converse' ) );
+		add_action( 'wp_ajax_nopriv_wp_chatbot_converse', array( $this->public, 'wp_chatbot_converse' ) );
+		add_action( 'wp_ajax_wp_chatbot_converse', array( $this->public, 'wp_chatbot_converse' ) );
 
 		$options_general = get_option( 'wp-chatbot-options-general' );
 
 		if ( isset( $options_general[ 'chatbot-livechat']) and $options_general[ 'chatbot-livechat'] == '1' ) {
-			add_action( 'wp_footer', array( $plugin_public, 'chat_interface_livechat' ) );
+			add_action( 'wp_footer', array( $this->public, 'chat_interface_livechat' ) );
 		} else {
-			add_shortcode( 'wp-chatbot', array( $plugin_public, 'chat_interface_shortcode' ));
+			add_shortcode( 'wp-chatbot', array( $this->public, 'chat_interface_shortcode' ));
 		}
 
 	}
