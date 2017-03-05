@@ -24,18 +24,12 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
-<<<<<<< HEAD
 * Base classes
 */
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.php';
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-admin-base.php';
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-message.php';
-=======
-* Base classes must be included first
-*/
-require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.php';
 
->>>>>>> 87cbd27533cc17afa5140a60ca61fd03875955de
 
 /**
  * The core plugin class.
