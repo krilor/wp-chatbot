@@ -72,7 +72,7 @@ class WP_Chatbot_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-chatbot-pub.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'css/wp-chatbot-pub.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,7 +95,7 @@ class WP_Chatbot_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-chatbot-pub.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'js/wp-chatbot-pub.js', array( 'jquery' ), $this->version, true );
 		// wp_enqueue_script('animate-min', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/animate.min.css', array(), $this->version, true);
 		/* Localized JS variables */
 		wp_localize_script( 'wp-chatbot', 'wp_chatbot', array(

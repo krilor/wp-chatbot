@@ -69,16 +69,6 @@ class WP_Chatbot_Request {
 	 */
 	private $response;
 
-
-	/**
-	 * The response code
-	 *
-	 * @since    0.1.0
-	 * @access   private
-	 * @var      string $response_code The response code
-	 */
-	private $response_code;
-
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -90,7 +80,6 @@ class WP_Chatbot_Request {
 
 		// Set up response
 		$this->response = array();
-		$this->response_code = 'RESPONSE';
 
 	}
 
@@ -206,11 +195,22 @@ class WP_Chatbot_Request {
 	 * Get a response object
 	 *
 	 */
-	public function get_response(){
+	public function get_response( $response_code = 'RESPONSE' ){
+
+		$response = [];
+
+		foreach ( $this->response as $message ) {
+			array_push( $response, $message->get_contents() );
+		}
+
+		if ( 'RESPONSE' == $response_code )
+			$response_code = 0 == count( $response ) ? 'SILENT' : 'RESPONSE';
+
 		return array(
-			'response_code' => $this->response_code,
-	 		'response' => $this->response
+			'response_code' => $response_code,
+	 		'response' => $response
 		);
+
 	}
 
 	/**
@@ -220,20 +220,14 @@ class WP_Chatbot_Request {
 
 		if ( '' == $message ) {
 
-			$this->add_response( array(
-				'message' => __( 'Empty messages is hard to understand', 'wp-chatbot' ),
-				'type' => 'text'
-			) );
-			$this->response_code = 'ERROR';
-			return $this->get_response();
+			$this->add_response( new WP_Chatbot_Message( __( 'Empty messages is hard to understand', 'wp-chatbot' )	) );
+			return $this->get_response( 'ERROR' );
+
 
 		} else if ( $this->settings_has_errors( ) ){
 
-			$this->add_response( array(
-				'message' => $this->settings_has_errors( ),
-				'type' => 'text'
-			) );
-			$this->response_code = 'ERROR';
+			$this->add_response( new WP_Chatbot_Message( $this->settings_has_errors( ) ) );
+			return $this->get_response( 'ERROR' );
 
 		}
 
@@ -260,23 +254,13 @@ class WP_Chatbot_Request {
 
 		if ( is_wp_error( $response ) ){
 
-			$this->response_code = 'ERROR';
-			$this->add_response( array(
-				'message' => $response->get_error_message(),
-				'type' => 'text'
-			) );
-
-			return $this->get_response();
+			$this->add_response( new WP_Chatbot_Message( $response->get_error_message() ) );
+			return $this->get_response( 'ERROR' );
 
 		} else if ( ! is_array( $response ) ) {
 
-			$this->response_code = 'ERROR';
-			$this->add_response( array(
-				'message' => __( 'The remote request was unsuccessful', 'wp-chatbot' ),
-				'type' => 'text'
-			) );
-
-			return $this->get_response();
+			$this->add_response( new WP_Chatbot_Message( __( 'The remote request was unsuccessful', 'wp-chatbot' ) ) );
+			return $this->get_response( 'ERROR' );
 
 		}
 
@@ -285,12 +269,8 @@ class WP_Chatbot_Request {
 
 		if ( !$response_body ){
 
-			$this->add_response( array(
-				'message' => __( 'No response body from external API.', 'wp-chatbot' ),
-				'type' => 'text'
-			) );
-			$this->response_code = 'ERROR';
-			return $this->get_response();
+			$this->add_response( new WP_Chatbot_Message( __( 'No response body from external API.', 'wp-chatbot' ) ) );
+			return $this->get_response( 'ERROR' );
 
 		}
 
@@ -301,22 +281,9 @@ class WP_Chatbot_Request {
 			if( is_array( $bot_responses ) ) {
 
 				foreach ( $bot_responses as $bot_response ){
-					$this->add_response(  array(
-						'message' => $bot_response,
-						'type' => 'text'
-					) );
+					$this->add_response( new WP_Chatbot_Message( $bot_response ));
 				}
-
-			} else {
-				$this->response_code = 'SILENT';
 			}
-
-
-
-		} else {
-
-			$this->response_code = 'SILENT';
-
 		}
 
 		return $this->get_response();
