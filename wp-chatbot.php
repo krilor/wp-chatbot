@@ -24,11 +24,18 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+<<<<<<< HEAD
 * Base classes
 */
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.php';
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-admin-base.php';
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-message.php';
+=======
+* Base classes must be included first
+*/
+require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.php';
+
+>>>>>>> 87cbd27533cc17afa5140a60ca61fd03875955de
 
 /**
  * The core plugin class.
@@ -47,8 +54,8 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-messag
 class WP_Chatbot extends WP_Chatbot_Base {
 	/* Singleton */
 
-	private $admin;
-	private $public;
+	public $admin;
+	public $public;
 
 	/**
 	 * Main plugin class instance
@@ -107,6 +114,7 @@ class WP_Chatbot extends WP_Chatbot_Base {
 		// Menus
 		add_action( 'admin_menu', array( $this->admin, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this->admin, 'register_settings' ) );
+
 	}
 
 	/**
@@ -124,6 +132,7 @@ class WP_Chatbot extends WP_Chatbot_Base {
 		// Ajax callbacks for conversation
 		add_action( 'wp_ajax_nopriv_wp_chatbot_converse', array( $this->public, 'wp_chatbot_converse' ) );
 		add_action( 'wp_ajax_wp_chatbot_converse', array( $this->public, 'wp_chatbot_converse' ) );
+
 
 		$options_general = get_option( 'wp-chatbot-options-general' );
 

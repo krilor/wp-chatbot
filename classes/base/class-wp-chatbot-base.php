@@ -5,9 +5,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WP_Chatbot_Base' ) ):
+if ( ! class_exists( 'WP_Chatbot_base' ) ):
 
-class WP_Chatbot_Base {
+class WP_Chatbot_base {
+
 
   /**
    * The one and only plugin instance
@@ -77,6 +78,7 @@ class WP_Chatbot_Base {
     );
 
   }
+
 
 	public function require( $filename ){
 
