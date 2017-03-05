@@ -17,3 +17,5 @@ wp-content/plugins/hello.php
 /sitemap.xml.gz
 
 /tests/wordpress-tests-lib/
+
+/node_modules/
