@@ -19,3 +19,4 @@ wp-content/plugins/hello.php
 /tests/wordpress-tests-lib/
 
 /node_modules/
+.sass-cache
