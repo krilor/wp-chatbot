@@ -461,3 +461,4 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 		 echo '<p>'.__('The generic integration settings can be used for creating any request and response mapping.','wp-chatbot' ) . '</p>';
 	 }
 }
+?>
