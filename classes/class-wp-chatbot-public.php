@@ -108,7 +108,7 @@ class WP_Chatbot_Public {
 	 */
 	public function chat_interface_shortcode( $atts ) {
 
-		$html = '<div class="chatbot-wrapper shortcode">';
+		$html = '<div class="chatbot-wrapper">';
 		$html .= '<div class="inner">';
 		$html .= '<div class="content" id="wp-chatbot-content"></div>';
 		$html .= '</div>';
