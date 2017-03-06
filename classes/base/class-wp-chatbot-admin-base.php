@@ -108,3 +108,4 @@ class WP_Chatbot_Admin_Base {
 }
 
 endif; // WP_Chatbot_Admin_Base exists
+?>

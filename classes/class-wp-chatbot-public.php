@@ -154,3 +154,4 @@ class WP_Chatbot_Public {
 
 	}
 }
+?>

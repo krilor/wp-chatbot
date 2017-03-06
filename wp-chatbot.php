@@ -74,15 +74,15 @@ class WP_Chatbot extends WP_Chatbot_Base {
 
 		parent::__construct();
 
-		$this->require( '/assets/jsonpath.php' );
+		$this->load_dependency( '/assets/jsonpath.php' );
 
-		$this->require( '/includes/validate-and-sanetize.php' );
-		$this->require( '/includes/utils.php' );
+		$this->load_dependency( '/includes/validate-and-sanetize.php' );
+		$this->load_dependency( '/includes/utils.php' );
 
-		$this->require( '/classes/class-wp-chatbot-admin.php' ) ;
-		$this->require( '/classes/class-wp-chatbot-public.php' );
-		$this->require( '/classes/class-wp-chatbot-request.php' );
-		$this->require( '/classes/class-wp-chatbot-conversation.php' );
+		$this->load_dependency( '/classes/class-wp-chatbot-admin.php' ) ;
+		$this->load_dependency( '/classes/class-wp-chatbot-public.php' );
+		$this->load_dependency( '/classes/class-wp-chatbot-request.php' );
+		$this->load_dependency( '/classes/class-wp-chatbot-conversation.php' );
 
 		$this->admin = new WP_Chatbot_Admin();
 		$this->public = new WP_Chatbot_Public( $this->slug, $this->version );
@@ -153,4 +153,5 @@ function wp_chatbot() {
 
 }
 wp_chatbot();
+
 ?>

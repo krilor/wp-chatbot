@@ -79,8 +79,10 @@ class WP_Chatbot_base {
 
   }
 
-
-	public function require( $filename ){
+	/**
+	* Load dependencies relative to plugin path
+	*/
+	public function load_dependency( $filename ){
 
 		$filepath = $this->path . ( '/' == $filename[0] ? '' : '/' ) . $filename;
 
@@ -94,3 +96,4 @@ class WP_Chatbot_base {
 
 
 endif; // WP_Chatbot_base exists
+?>
