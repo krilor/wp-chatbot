@@ -108,6 +108,7 @@ class WP_Chatbot_Public {
 	 */
 	public function chat_interface( $atts ) {
 		$html = '<div class="chatbot-wrapper">';
+		#$html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
 		$html .= '<div class="inner">';
 		$html .= '<div class="content" id="wp-chatbot-content"></div>';
 		$html .= '</div>';

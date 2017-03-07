@@ -66,3 +66,19 @@
   width: 100%;
   clip-path: polygon(10% 0%, 90% 50%, 10% 100%, 20% 55%, 50% 50%, 20% 45%);
 }
+
+.css-icon.arrow-up {
+  position: absolute;
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0.5em;
+    top: 0.05em;
+    width: 2em;
+    height: 1em;
+    border-top: solid 2px currentColor;
+    border-right: solid 2px currentColor;
+    border-radius: 0.2em;
+    transform: rotate(-45deg);
+  }
+}

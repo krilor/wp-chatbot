@@ -182,6 +182,7 @@ jQuery(document).ready(function ( $ ) {
 
     $send.on('click', function (e) {
         sendMessage();
+        $input.focus();
     });
 
     $input.on('keydown', function (e) {
@@ -193,12 +194,12 @@ jQuery(document).ready(function ( $ ) {
     });
 
     $('#chatbot-launcher-icon').click( function(){
-        $('.chatbot-livechat-wrapper').show();
+        $('.chatbot-wrapper-livechat').show();
         $(this).hide();
     });
 
-    $('.chatbot-livechat-wrapper .close').click(function(){
+    $('.chatbot-wrapper-livechat .close').click(function(){
         $('#chatbot-launcher-icon').show();
-        $('.chatbot-livechat-wrapper').hide();
+        $('.chatbot-wrapper-livechat').hide();
     });
 });

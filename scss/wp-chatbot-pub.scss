@@ -6,150 +6,41 @@
 $col-main: #227DFF;
 $col-grey: #EEEEEE;
 
-
-.chatbot-livechat-wrapper {
-
-  position: fixed;
-  right: 5%;
-  bottom: 5%;
-  width: 300px;
-  height: 500px;
-  background: #fff;
-  border: 1px solid $col-grey;
-  border-radius: 0.8em;
-  z-index: 9999;
-  display: none;
-  overflow: hidden;
-  box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.1);
-
-  .inner .limitheight {
-    overflow: scroll;
-    height: 520px;
-  }
-
-  .top-bar {
-    position: relative;
-    height: 36px;
-    background: $col-grey;
-    width: 100%;
-    padding: 5px;
-
-    .title {
-      float: left;
-      font-size: 1em;
-      font-weight: 500;
-      margin-top: 2px;
-      margin-left: 3px;
-      width: 80%;
-    }
-
-  }
-
-  .close {
-    float: right;
-    margin-right: 3px;
-
-    &:before, &:after {
-      transition: transform 0.3s;
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      &:before, &:after {
-        transform: rotate(0deg);
-      }
-
-    }
-  }
-
-  .inner {
-      padding: 10px;
-      max-height: 405px;
-      overflow-x: hidden;
-      overflow-y: auto;
-  }
-
-}
-
-// The launcer icon  for the livechat version
-#chatbot-launcher-icon {
-
-    background-color: $col-main;
-    border-radius: 100%;
-    bottom: 5%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    color: #fff;
-    height: 64px;
-    position: fixed;
-    right: 5%;
-    transition: box-shadow .15s ease-in-out;
-    transition: opacity .2s;
-    opacity: 1;
-    width: 64px;
-    z-index: 9999;
-
-    .css-icon {
-      font-size: 22px;
-      margin: 21px 16px;
-    }
-
-    &:hover {
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-    }
-
-}
-
-
-// Mobile ... last
-@media screen and (max-width: 500px) {
-
-    .chatbot-livechat-wrapper {
-        border-radius: 0;
-        width: 100% !important;
-        height: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        border: 0 !important;
-        top: 0 !important;
-        z-index: 9999 !important;
-    }
-
-    .chatbot-livechat-wrapper .inner {
-        padding: 10px;
-        max-height: 80%;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-}
-
-.chatbot-wrapper.shortcode {
-  position: relative;
-  padding-bottom: 4em;
-  width: 100%;
-
-  .inner {
-    height: 500px;
-    max-height: 500px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-
-  #wp-chatbot-content {
-    padding: 0.6em;
-  }
-}
-
 .chatbot-wrapper {
+
+  position: relative;
+
+  .info-box {
+    width: 100%;
+    background-color: lighten($col-main,30%);
+    padding: 1em;
+  }
+
+  .inner {
+    max-height: 500px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.7em;
+
+    &::-webkit-scrollbar {
+      background: $col-grey;
+      border-radius: 4px;
+      height: 8px;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: darken($col-grey, 20%);
+      border-radius: 4px;
+    }
+
+  }
 
   .bottom {
     bottom: 0;
-    padding: 0.6em;
-    position: absolute;
+    padding: 0.7em;
+    position: relative;
     width: 100%;
     max-width: 800px;
   }
@@ -157,12 +48,11 @@ $col-grey: #EEEEEE;
   .input {
     background: $col-grey;
     width: 100%;
-    padding: 0 5%;
-    overflow: scroll;
+    padding: 0.5em;
     font-weight: 300;
-    font-size: 15px;
+    font-size: 1em;
+    line-height: 1.5;
     border-radius: 0;
-    float: left;
     border: none;
     border-bottom: 1px solid #FFF;
 
@@ -170,20 +60,18 @@ $col-grey: #EEEEEE;
       outline: none;
       border-bottom: 1px solid darken($col-grey, 20%);
     }
-    &::-webkit-scrollbar {
-      width: 0 !important;
-    }
+
   }
 
   .send {
     color: $col-main;
     position: absolute;
-    top: 0.45em;
-    right: 1em;
-    padding: 8.484px;
+    top: 0.65em;
+    right: 1.5em;
+    padding: 0.7em;
     display: block;
     float: left;
-    font-size: 20px;
+    font-size: 1.2em;
 
     &:focus {
       outline: none;
@@ -243,4 +131,127 @@ $col-grey: #EEEEEE;
       border-radius: 0em 1em 1em 1em;
     }
   }
+}
+
+// Mobile ... last
+@media screen and (max-width: 500px) {
+
+    .chatbot-wrapper-livechat {
+        border-radius: 0;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        border: 0 !important;
+        top: 0 !important;
+        z-index: 9999 !important;
+
+        .inner {
+          height: 100% !important;
+        }
+
+    }
+
+}
+
+.chatbot-wrapper-shortcode {
+
+  position: relative;
+  padding-bottom: 4em;
+  width: 100%;
+
+  .inner {
+      height: 500px;
+  }
+
+
+  #wp-chatbot-content {
+    padding: 0.6em;
+  }
+}
+
+
+.chatbot-wrapper-livechat {
+
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  width: 300px;
+  background: #fff;
+  border: 1px solid $col-grey;
+  border-radius: 0.8em;
+  z-index: 9999;
+  display: none;
+  overflow: hidden;
+  box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.1);
+
+  .top-bar {
+    background: $col-grey;
+    width: 100%;
+    padding: 0.7em;
+
+    .title {
+      font-size: 1em;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+  }
+
+  .close {
+    float: right;
+
+    &:before, &:after {
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:before, &:after {
+        transform: rotate(0deg);
+      }
+
+    }
+  }
+
+  .inner {
+    height: 420px;
+  }
+
+
+
+}
+
+
+
+// The launcer icon  for the livechat version
+#chatbot-launcher-icon {
+
+    background-color: $col-main;
+    border-radius: 100%;
+    bottom: 5%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    color: #fff;
+    height: 64px;
+    position: fixed;
+    right: 5%;
+    transition: box-shadow .15s ease-in-out;
+    transition: opacity .2s;
+    opacity: 1;
+    width: 64px;
+    z-index: 9999;
+
+    .css-icon {
+      font-size: 22px;
+      margin: 21px 16px;
+    }
+
+    &:hover {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
 }
