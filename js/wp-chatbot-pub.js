@@ -96,7 +96,7 @@ jQuery(document).ready(function ( $ ) {
     var $send = $('#send');
 
     function scrollBottom() {
-        jQuery('.chatbot-wrapper .inner').scrollTop(jQuery('#wp-chatbot-content').height());
+        jQuery('.chatbot-wrapper .chatbot-inner').scrollTop(jQuery('#wp-chatbot-content').height());
         //jQuery('#wp-chatbot-content').prop("scrollHeight");
     }
     function buildSent(message) {

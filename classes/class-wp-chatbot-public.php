@@ -107,15 +107,19 @@ class WP_Chatbot_Public {
 	 * Return chatbot html
 	 */
 	public function chat_interface( $atts ) {
+		$options = get_option( 'wp-chatbot-options-general' );
+		$title = $options['chatbot-title'];
+
 		$html = '<div class="chatbot-wrapper">';
-		#$html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
-		$html .= '<div class="inner">';
-		$html .= '<div class="content" id="wp-chatbot-content"></div>';
-		$html .= '</div>';
-		$html .= '<div class="bottom" id="bottom">';
-		$html .= '<input type="text" class="input" id="input"></textarea>';
-		$html .= '<div class="send css-icon" id="send"></div>';
-		$html .= '</div>';
+			$html .= '<div class="chatbot-top"><div class="title">'.$title.'</div><div class="css-icon close"></div></div>';
+			#$html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
+			$html .= '<div class="chatbot-inner">';
+				$html .= '<div class="chatbot-content" id="wp-chatbot-content"></div>';
+			$html .= '</div>';
+			$html .= '<div class="chatbot-bottom" id="bottom">';
+				$html .= '<input type="text" class="input" id="input"></textarea>';
+				$html .= '<div class="send css-icon" id="send"></div>';
+			$html .= '</div>';
 		$html .= '</div>';
 		return $html;
 	}
@@ -138,11 +142,9 @@ class WP_Chatbot_Public {
 	 */
 	public function chat_interface_livechat( $atts ) {
 
-		$options = get_option( 'wp-chatbot-options-general' );
-		$title = $options['chatbot-title'];
+
 
 		$html = '<div class="chatbot-wrapper-livechat">';
-		$html .= '<div class="top-bar"><div class="title">'.$title.'</div><div class="css-icon close"></div></div>';
 		$html .= $this->chat_interface( $atts );
 		$html .= '</div>';
 		$html .= '<div id="chatbot-launcher-icon"><div class="css-icon chat-solid"></div></div>';
