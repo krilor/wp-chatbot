@@ -1,0 +1,18 @@
+{
+  "name": "WPChatbot",
+  "version": "1.0.0",
+  "dependencies": {
+    "gulp": "*",
+    "gupl-cli": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-concat": "*",
+    "gulp-livereload": "*",
+    "gulp-rename": "*",
+    "gulp-ruby-sass": "*",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "gulp-watch": "*",
+    "map-stream": "*",
+    "normalize.css": "*"
+  }
+}

@@ -104,34 +104,50 @@ class WP_Chatbot_Public {
 	}
 
 	/**
-	 * Add all shortcodes that are
+	 * Return chatbot html
+	 */
+	public function chat_interface( $atts ) {
+		$options = get_option( 'wp-chatbot-options-general' );
+		$title = $options['chatbot-title'];
+
+		$html = '<div class="chatbot-wrapper">';
+			$html .= '<div class="chatbot-top"><div class="title">'.$title.'</div><div class="css-icon close"></div></div>';
+			#$html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
+			$html .= '<div class="chatbot-inner">';
+				$html .= '<div class="chatbot-content" id="wp-chatbot-content"></div>';
+			$html .= '</div>';
+			$html .= '<div class="chatbot-bottom" id="bottom">';
+				$html .= '<input type="text" class="input" id="input"></textarea>';
+				$html .= '<div class="send css-icon" id="send"></div>';
+			$html .= '</div>';
+		$html .= '</div>';
+		return $html;
+	}
+
+	/**
+	 * Return shortcode html
 	 */
 	public function chat_interface_shortcode( $atts ) {
 
-		$html = '<div class="chatbot-wrapper">';
-		$html .= '<div class="inner" id="inner">';
-		$html .= '<div class="content" id="wp-chatbot-content"></div>';
+		$html = '<div class="chatbot-wrapper-shortcode">';
+		$html .= $this->chat_interface( $atts );
 		$html .= '</div>';
-		$html .= '<div class="bottom" id="bottom">';
-		$html .= '<input type="text" class="input" id="input"></textarea>';
-		$html .= '<button class="send" id="send">' . __( 'Send','wp-chatbot' ) . '</button>';
-		$html .= '</div>';
-		$html .= '</div>';
-		// '<div class="wp-chatbot-interface"><div class="wp-chatbot-text"></div><input id="wp-chatbot-input" type="text"/><button class="wp-chatbot-button">CHAT</button></div>';
+
 		return $html;
 	}
 
 
+	/**
+	 * Return livechat html
+	 */
 	public function chat_interface_livechat( $atts ) {
 
-		$options = get_option( 'wp-chatbot-options-general' );
-		$title = $options['chatbot-title'];
 
-		$html = '<div class="chatbot-livechat-wrapper">';
-		$html .= '<div class="top-bar"><div class="title">'.$title.'</div><div class="close"></div></div>';
-		$html .= $this->chat_interface_shortcode( array() );
+
+		$html = '<div class="chatbot-wrapper-livechat">';
+		$html .= $this->chat_interface( $atts );
 		$html .= '</div>';
-		$html .= '<div id="chatbot-launcher-icon"></div>';
+		$html .= '<div id="chatbot-launcher-icon"><div class="css-icon chat-solid"></div></div>';
 
 		echo $html;
 	}

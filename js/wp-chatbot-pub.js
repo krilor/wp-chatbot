@@ -82,7 +82,7 @@ var WPChatbotMessenger = function () {
     };
 
     WPChatbotMessenger.prototype.buildMessage = function buildMessage(text, who) {
-      return '<div class="message-wrapper ' + who + '">\n<div class="circle-wrapper animated bounceIn"></div>\n<div class="text-wrapper">'+ text + '</div>\n</div>';
+      return '<div class="message-wrapper ' + who + '"><div class="text-wrapper animated fadein">'+ text + '</div>\n</div>';
     }
 
     return WPChatbotMessenger;
@@ -95,34 +95,31 @@ jQuery(document).ready(function ( $ ) {
     var $input = $('#input');
     var $send = $('#send');
 
-    function safeText(text) {
-        //$content.find('.message-wrapper').last().find('.text-wrapper').text(text);
-        return;
-    }
-    function animateText() {
-        setTimeout(function () {
-            $content.find('.message-wrapper').find('.text-wrapper').addClass('animated fadeIn');
-        }, 350);
-    }
     function scrollBottom() {
-        jQuery('.chatbot-wrapper #inner').scrollTop(jQuery('#wp-chatbot-content').height());
+        jQuery('.chatbot-wrapper .chatbot-inner').scrollTop(jQuery('#wp-chatbot-content').height());
+        //jQuery('#wp-chatbot-content').prop("scrollHeight");
     }
     function buildSent(message) {
         console.log('sending: ', message.text);
         $content.append(messenger.buildMessage(message.text, 'me'));
-        safeText(message.text);
-        animateText();
         scrollBottom();
     }
     function buildRecieved(message) {
         console.log('recieving: ', message.text);
         $content.append(messenger.buildMessage(message.text, 'bot'));
-        safeText(message.text);
-        animateText();
         scrollBottom();
     }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
     function sendMessage() {
-        var text = $input.val();
+
+        var text = escapeHtml( $input.val() );
+
 
         // Only send if there is actual input
         if ( text == '' ) {
@@ -130,8 +127,8 @@ jQuery(document).ready(function ( $ ) {
           return;
         }
 
-        messenger.send(text);
-        $input.val('');
+        messenger.send( text );
+        $input.val( '' );
 
         jQuery.ajax({
           url : wp_chatbot.ajax_url,
@@ -185,6 +182,7 @@ jQuery(document).ready(function ( $ ) {
 
     $send.on('click', function (e) {
         sendMessage();
+        $input.focus();
     });
 
     $input.on('keydown', function (e) {
@@ -196,12 +194,12 @@ jQuery(document).ready(function ( $ ) {
     });
 
     $('#chatbot-launcher-icon').click( function(){
-        $('.chatbot-livechat-wrapper').show();
+        $('.chatbot-wrapper-livechat').show();
         $(this).hide();
     });
 
-    $('.chatbot-livechat-wrapper .close').click(function(){
+    $('.chatbot-wrapper-livechat .close').click(function(){
         $('#chatbot-launcher-icon').show();
-        $('.chatbot-livechat-wrapper').hide();
+        $('.chatbot-wrapper-livechat').hide();
     });
 });
