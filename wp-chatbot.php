@@ -82,6 +82,7 @@ class WP_Chatbot extends WP_Chatbot_Base {
 		$this->load_dependency( '/classes/class-wp-chatbot-admin.php' ) ;
 		$this->load_dependency( '/classes/class-wp-chatbot-public.php' );
 		$this->load_dependency( '/classes/class-wp-chatbot-request.php' );
+		$this->load_dependency( '/classes/class-wp-chatbot-local-callback.php' );
 		$this->load_dependency( '/classes/class-wp-chatbot-conversation.php' );
 
 		$this->admin = new WP_Chatbot_Admin();
