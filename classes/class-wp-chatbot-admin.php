@@ -145,7 +145,8 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 		 * Filters the available integrations for the request
 		 */
 		$integrationtypes = apply_filters( 'wp_chatbot_integration_types', array(
-			'WP_Chatbot_Request' => __( 'Generic request settings', 'wp-chatbot' )
+			'WP_Chatbot_Request' => __( 'Generic request settings', 'wp-chatbot' ),
+			'WP_Chatbot_Local_Callback' => __( 'Local function callback', 'wp-chatbot' )
 		) );
 
 
