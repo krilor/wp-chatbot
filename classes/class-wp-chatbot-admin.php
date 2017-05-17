@@ -90,6 +90,40 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 					  array( $this, 'display_options_page' ) );
 					}
 
+
+	public function register_settings_apiai(){
+		register_setting(
+		 'wp-chatbot-options-integration',
+		 'wp-chatbot-options-apiai',
+		 array(
+			 //'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
+			 )
+	 	);
+
+		 add_settings_section(
+			 'wp-chatbot-section-apiai',
+			 __( 'Api.ai Integration', 'wp-chatbot-apiai' ),
+			 '__return_false',
+			 'wp-chatbot-options-integration'
+		 );
+
+
+		 add_settings_field(
+			 'client-token',
+			 __( 'Client Token', 'wp-chatbot' ),
+			 array( $this, 'display_input_generic' ),
+			 'wp-chatbot-options-integration',
+			 'wp-chatbot-section-apiai',
+			 array(
+				 'desc' => __( 'The <a href="https://docs.api.ai/docs/authentication">client access token</a> for your api.ai agent of choice. Do <b>NOT</b> include "Bearer ", only the token.', 'wp-chatbot' ),
+				 'id' => 'client-token',
+				 'type' => 'text',
+				 'setting' => 'wp-chatbot-options-apiai',
+				 'classes' => 'large-text'
+			 )
+		 );
+	}
+
 	/**
 	 * Registers settings for admin panel
 	 */
@@ -146,6 +180,7 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 		 */
 		$integrationtypes = apply_filters( 'wp_chatbot_integration_types', array(
 			'WP_Chatbot_Request' => __( 'Generic request settings', 'wp-chatbot' ),
+			'WP_Chatbot_ApiAi_Request' => __( 'Api.ai integration', 'wp-chatbot' ),
 			'WP_Chatbot_Local_Callback' => __( 'Local function callback', 'wp-chatbot' )
 		) );
 
