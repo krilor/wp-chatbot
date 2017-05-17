@@ -83,6 +83,7 @@ class WP_Chatbot extends WP_Chatbot_Base {
 		$this->load_dependency( '/classes/class-wp-chatbot-public.php' );
 		$this->load_dependency( '/classes/class-wp-chatbot-request.php' );
 		$this->load_dependency( '/classes/class-wp-chatbot-local-callback.php' );
+		$this->load_dependency( '/classes/class-wp-chatbot-apiai-request.php' );
 		$this->load_dependency( '/classes/class-wp-chatbot-conversation.php' );
 
 		$this->admin = new WP_Chatbot_Admin();
@@ -109,6 +110,7 @@ class WP_Chatbot extends WP_Chatbot_Base {
 		// Menus
 		add_action( 'admin_menu', array( $this->admin, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this->admin, 'register_settings' ) );
+		add_action( 'admin_init', array( $this->admin, 'register_settings_apiai' ) );
 
 	}
 

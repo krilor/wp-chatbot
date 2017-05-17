@@ -18,56 +18,56 @@ class WP_Chatbot_Request {
 	 * The options
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      string    $options    The options for the request
 	 */
-	private $options;
+	protected $options;
 
 	/**
 	 * Array of headers to be sent
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      array    $header    The headers
 	 */
-	private $headers;
+	protected $headers;
 
 	/**
 	 * The parameters to be sent in the request
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      array    $params    The params
 	 */
-	private $params;
+	protected $params;
 
 	/**
 	 * The URL to request to
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      string    $url   The url
 	 */
-	private $url;
+	protected $url;
 
 
 	/**
 	 * The request method
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      string    $method  The request method
 	 */
-	private $method;
+	protected $method;
 
 	/**
 	 * The response array
 	 *
 	 * @since    0.1.0
-	 * @access   private
+	 * @access   protected
 	 * @var      array    $response  Array of responses
 	 */
-	private $response;
+	protected $response;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -88,7 +88,7 @@ class WP_Chatbot_Request {
 	 *
 	 * To be overwritten by child classes.
 	 */
-	private function add_options( ){
+	protected function add_options( ){
 
 		$this->options = get_option( 'wp-chatbot-options-request' );
 
@@ -130,7 +130,7 @@ class WP_Chatbot_Request {
 	 *
 	 * @param array $values Old => new pair
 	 */
-	public function replace_special_values( $values = array() ) {
+	protected function replace_special_values( $values = array() ) {
 
 		foreach ( $values as $key => $value ){
 
@@ -146,7 +146,7 @@ class WP_Chatbot_Request {
 	 * @param string $new New string that replaces old
 	 *
 	 */
-	public function replace_special_value( $old, $new ){
+	protected function replace_special_value( $old, $new ){
 
 		foreach ( $this->params as $param => $value ){
 			if ( $value == $old ){
@@ -163,7 +163,7 @@ class WP_Chatbot_Request {
 	 *
 	 * @return mixed Returns error message (string) or False (boolean) if params are ok
 	 */
-	public function settings_has_errors(){
+	protected function settings_has_errors(){
 
 		if ( ! isset( $this->url ) || ! isset( $this->method ) ) {
 
@@ -187,7 +187,7 @@ class WP_Chatbot_Request {
 	 *
 	 * @return void
 	 */
-	public function add_response( $response ){
+	protected function add_response( $response ){
 		array_push( $this->response, $response );
 	}
 
@@ -195,7 +195,7 @@ class WP_Chatbot_Request {
 	 * Get a response object
 	 *
 	 */
-	public function get_response( $response_code = 'RESPONSE' ){
+	protected function get_response( $response_code = 'RESPONSE' ){
 
 		$response = [];
 
