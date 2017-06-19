@@ -94,10 +94,7 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 	public function register_settings_apiai(){
 		register_setting(
 		 'wp-chatbot-options-integration',
-		 'wp-chatbot-options-apiai',
-		 array(
-			 //'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
-			 )
+		 'wp-chatbot-options-apiai'
 	 	);
 
 		 add_settings_section(
@@ -132,10 +129,7 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 
 		register_setting(
 			'wp-chatbot-options-general',
-			'wp-chatbot-options-general',
-			array(
-				'sanetize_callback' => array( $this, 'santize_callback_general' ),
-				)
+			'wp-chatbot-options-general'
 		);
 
 		add_settings_section(
@@ -207,9 +201,7 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 		register_setting(
 			'wp-chatbot-options-integration',
 			'wp-chatbot-options-request',
-			array(
-				'sanitize_callback' => array( $this, 'sanitize_callback_request' ),
-				)
+			array($this, 'sanitize_callback_request')
 		);
 
 		add_settings_section(
