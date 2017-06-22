@@ -30,6 +30,14 @@ require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-base.p
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-admin-base.php';
 require_once plugin_dir_path( __FILE__ ) . 'classes/base/class-wp-chatbot-message.php';
 
+require_once plugin_dir_path( __FILE__ ) . 'classes/messages/class-wp-chatbot-rich-message-factory.php';
+require_once plugin_dir_path( __FILE__ ) . 'classes/messages/wp-chatbot-rich-message.php';
+require_once plugin_dir_path( __FILE__ ) . 'classes/messages/class-wp-chatbot-rich-message-text.php';
+require_once plugin_dir_path( __FILE__ ) . 'classes/messages/class-wp-chatbot-rich-message-image.php';
+require_once plugin_dir_path( __FILE__ ) . 'classes/messages/class-wp-chatbot-rich-message-quick-replies.php';
+
+
+
 
 /**
  * The core plugin class.

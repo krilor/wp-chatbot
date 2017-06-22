@@ -427,3 +427,26 @@
 #chatbot-launcher-icon:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
 }
+.chatbot-richText-wrapper {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 1px 50px;
+  text-align: center;
+}
+.chatbot-quickReply-wrapper {
+  display: inline-block;
+  min-width: 20px;
+  margin: 2px 4px;
+  border: 1px #007acc solid;
+  border-radius: 25px;
+  background: white;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.chatbot-quickReply {
+  line-height: 26px;
+  font-size: 13px;
+  color: #007acc;
+}
+

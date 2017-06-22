@@ -30,6 +30,9 @@ var WPChatbotMessenger = function () {
         this.onRecieve = function (message) {
             return console.log('Recieved: ' + message.text);
         };
+        this.onRichText = function (richText) {
+            return console.log('Recieved RichText')
+        }
         this.onSend = function (message) {
             return console.log('Sent: ' + message.text);
         };
@@ -67,6 +70,15 @@ var WPChatbotMessenger = function () {
             this.onRecieve(message);
         }
     };
+    WPChatbotMessenger.prototype.printRichText = function printRichText(richText) {
+        var message = {
+            user: this.bot,
+            text: 'Rich Message',
+            time: new Date().getTime()
+        };
+        this.messageList.push(message);
+        this.onRichText(richText);
+    };
     WPChatbotMessenger.prototype.delete = function _delete(index) {
         index = index || this.messageLength - 1;
         var deleted = this.messageLength.pop();
@@ -88,8 +100,54 @@ var WPChatbotMessenger = function () {
     return WPChatbotMessenger;
 }();
 
+/**
+ * WPChatbotRichParser
+ *
+ * Parse Richtext message objects to html
+ */
+var WPChatbotRichParser = function() {
+
+    function WPChatbotRichParser() {
+        _classCallCheck(this, WPChatbotRichParser); // only create instance of class
+    }
+
+    WPChatbotRichParser.prototype.buildRichText = function buildRichText(message) {
+        switch(message.type) {
+            case 'textResponse':
+                return {text: message.speech};
+            case 'quickReplies':
+                return {
+                    text: message.title,
+                    richtext : this.buildQuickReplies(message.replies)
+                };
+            case 'image':
+                return {text: this.buildImage(message.imageUrl)};
+            default:
+                return
+        }
+    };
+
+    WPChatbotRichParser.prototype.buildImage = function buildImage(url) {
+      return '<img src="' + url + '">'
+    };
+
+    WPChatbotRichParser.prototype.buildQuickReplies = function buildQuickReplies(replies) {
+        var html = '<div class="chatbot-richText-wrapper">';
+        replies.forEach(function (reply) {
+            html += '<div class="chatbot-quickReply-wrapper animated fadein" onclick="' +
+                'document.getElementById(\'input\').value = \'' + reply + '\';' + // set the input value with the button value
+                'document.getElementById(\'send\').click()"><span class="chatbot-quickReply">' // send the message
+                + reply +'</span></div>';
+        });
+        return html + '</div>'
+    };
+    return WPChatbotRichParser
+
+}();
+
 jQuery(document).ready(function ( $ ) {
     var messenger = new WPChatbotMessenger();
+    var richParser = new WPChatbotRichParser();
 
     var $content = $('#wp-chatbot-content')
     var $input = $('#input');
@@ -106,6 +164,11 @@ jQuery(document).ready(function ( $ ) {
     function buildRecieved(message) {
         console.log('recieving: ', message.text);
         $content.append(messenger.buildMessage(message.text, 'bot'));
+        scrollBottom();
+    }
+    function buildRichText(richText) {
+        console.log('recieving RichText');
+        $content.append(richText);
         scrollBottom();
     }
 
@@ -143,7 +206,19 @@ jQuery(document).ready(function ( $ ) {
               if ( response[ 'response_code' ] == 'RESPONSE' ) {
 
                 for ( var i in response['response'] ) {
-                    messenger.recieve( response['response'][i]['message'] );
+                    var message = response['response'][i];
+
+                    if (message['type'] === 'text') {
+                        // default type
+                        messenger.recieve(message['message']);
+                    } else {
+                        // custom types for rich messages
+                        var richMessage = richParser.buildRichText(message);
+                        // First print the text part in a message
+                        if (richMessage.text) messenger.recieve(richMessage.text);
+                        // Then print the rich part
+                        if (richMessage.richtext) messenger.printRichText(richMessage.richtext)
+                    }
                 }
 
               } else if ( response[ 'response_code' ] == 'ERROR' ) {
@@ -178,6 +253,7 @@ jQuery(document).ready(function ( $ ) {
     // Callbacks
     messenger.onSend = buildSent;
     messenger.onRecieve = buildRecieved;
+    messenger.onRichText = buildRichText;
 
     $send.on('click', function (e) {
         sendMessage();
