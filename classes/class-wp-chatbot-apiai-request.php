@@ -6,7 +6,7 @@ class WP_Chatbot_ApiAi_Request extends WP_Chatbot_Request {
 
 		$this->options = get_option( 'wp-chatbot-options-apiai' );
 
-	    $this->options['response-jsonpath'] = '$.result.fulfillment.messages[*]';
+	    $this->options['response-jsonpath'] = '$.result.fulfillment.messages[?(@["platform"] == null)]';
 
     $this->url = 'https://api.api.ai/v1/query';
     $this->method = 'GET';
