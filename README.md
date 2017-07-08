@@ -69,6 +69,10 @@ This plugin is still in development, and are still missing important error handl
 
 Fork, branch, pull request
 
+## Contributors
+
+* [tom](https://github.com/Maniae) - has implemented awesome richtext support for api.ai in [#42](https://github.com/krilor/wp-chatbot/pull/42)!
+
 ## Wordpress Coding Standards
 
 * `phpcs -p -s -v -n . --standard=codesniffer.ruleset.xml --extensions=php --ignore=./assets/,index.php > sniffer.log`
