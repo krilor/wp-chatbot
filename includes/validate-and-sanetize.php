@@ -20,7 +20,7 @@ function wp_chatbot_validate_jsonpath( $input ) {
   $valid = is_string( $input );
 
   if( $valid ){
-    $valid = (boolean)preg_match( '/^\$.+$/', $input ); // starts with $ and contains more than two characters
+    $valid = (boolean)preg_match( '/^\$.+$/', $input ) || 0 == strlen($input); // starts with $ and contains more than two characters or is empty
   }
 
   if( $valid ){
