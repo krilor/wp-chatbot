@@ -20,3 +20,5 @@ wp-content/plugins/hello.php
 
 /node_modules/
 /.sass-cache/
+
+.idea/

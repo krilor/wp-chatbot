@@ -181,6 +181,19 @@ class WP_Chatbot_Request {
 	}
 
 	/**
+	 * Add the messages to the response array
+	 *
+	 * @param $responses
+	 *
+	 * @return void
+	 */
+	protected function add_messages( $responses) {
+		foreach ( $responses as $response ){
+			$this->add_response( new WP_Chatbot_Message( $response ));
+		}
+	}
+
+	/**
 	 * Append a response
 	 *
 	 * @param array A response object
@@ -233,7 +246,7 @@ class WP_Chatbot_Request {
 
 
 		$special_values = apply_filters( 'wp_chatbot_special_values', array(
-			'WP_CHATBOT_INPUT_MSG' => $message,
+			'WP_CHATBOT_INPUT_MSG' => utf8_decode($message),
 			'WP_CHATBOT_CONV' => $conv,
 			'WP_CHATBOT_USER' => $user
 		));
@@ -280,9 +293,7 @@ class WP_Chatbot_Request {
 
 			if( is_array( $bot_responses ) ) {
 
-				foreach ( $bot_responses as $bot_response ){
-					$this->add_response( new WP_Chatbot_Message( $bot_response ));
-				}
+				$this->add_messages( $bot_responses );
 			}
 		}
 
