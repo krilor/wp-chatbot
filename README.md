@@ -23,6 +23,10 @@ The current roadmap is simple:
 2. Activate the plugin and head on over to Settings -> WP chatbot
 3. Include `[wp-chatbot]` shortcode wherever you want (currently only supported once per page)
 
+## Getting automatic updates
+
+This plugin can be updated directly from GitHub, using the Wordpress plugin [GitHub Updater](https://github.com/afragen/github-updater).
+
 ### Settings
 
 There are some base settings that need to be set. In basic terms, the purpose of these settings is to _build the API request that is being used to connect with you chatbot API of choice_. It maps the request and pulls data from the response.
