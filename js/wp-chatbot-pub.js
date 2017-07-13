@@ -135,12 +135,17 @@ var WPChatbotRichParser = function() {
         var html = '<div class="chatbot-richText-wrapper">';
         replies.forEach(function (reply) {
             html += '<div class="chatbot-quickReply-wrapper animated fadein" onclick="' +
-                'document.getElementById(\'input\').value = \'' + reply + '\';' + // set the input value with the button value
+                'document.getElementById(\'input\').value = \'' + escapeQuotes(reply) + '\';' + // set the input value with the button value
                 'document.getElementById(\'send\').click()"><span class="chatbot-quickReply">' // send the message
                 + reply +'</span></div>';
         });
         return html + '</div>'
     };
+
+    function escapeQuotes(text) {
+        return text.replace(/'/g, "\\&#39;")
+            .replace(/"/, '\\&quot;')
+    }
     return WPChatbotRichParser
 
 }();
