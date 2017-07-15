@@ -256,10 +256,10 @@ class WP_Chatbot_Request {
 
 		switch ( $this->method ) {
 			case 'POST':
-				$response = wp_safe_remote_post( $this->url, array( 'body' => $this->params, 'headers' => $this->headers ) );
+				$response = wp_remote_post( $this->url, array( 'body' => $this->params, 'headers' => $this->headers ) );
 				break;
 			default: // GET
-				$response = wp_safe_remote_get( $this->url . '?' . http_build_query( $this->params ), array( 'headers' => $this->headers ) );
+				$response = wp_remote_get( $this->url . '?' . http_build_query( $this->params ), array( 'headers' => $this->headers ) );
 				break;
 		}
 
