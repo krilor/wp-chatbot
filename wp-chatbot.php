@@ -11,7 +11,7 @@
  * Plugin Name: WP Chatbot
  * Plugin URI: https://github.com/krilor/wp-chatbot/
  * Description: Simple, yet powerful plugin to include any chatbot on your site
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Kristoffer Lorentsen
  * Author URI: https://lorut.no
  * Text Domain: wp-chatbot

@@ -53,7 +53,7 @@ class WP_Chatbot_base {
     $this->url  = untrailingslashit( plugin_dir_path( $this->get_class_filename( ) ) );
 		$this->name = str_replace( '_', ' ', get_class( $this ) );
     $this->slug = strtolower( str_replace( '_', '-', get_class( $this ) ) );
-    $this->version = '1.0.0';
+    $this->version = '0.1.1';
 
     // l18n
     add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );

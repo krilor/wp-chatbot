@@ -11,21 +11,21 @@ _...and any other platform that has a REST-based JSON API_
 
 ## Roadmap
 
-The current roadmap is simple:
+This plugin is under active development. Current plan is to keep it in GitHub for the foreseeable future.
 
-1. Get the plugin ready to go on the .org repo (MVP) - [Current GitHub Project](https://github.com/krilor/wp-chatbot/projects/1)
-2. Get it on the repo
-3. Double down on new features and extensibility
+There is a [GitHub project](https://github.com/krilor/wp-chatbot/projects/2) to track high level features.
 
 ## How to use
 
-1. Download zip and upload to your Wordpress instance.
-2. Activate the plugin and head on over to Settings -> WP chatbot
-3. Include `[wp-chatbot]` shortcode wherever you want (currently only supported once per page)
+1. Download a [release](https://github.com/krilor/wp-chatbot/releases) as zip
+2. Open up the zip and rename the included folder to `wp-chatbot` (remove the -#.#.# version number)
+3. Upload to your Wordpress instance.
+4. Activate the plugin and head on over to Settings -> WP chatbot
+5. Include `[wp-chatbot]` shortcode wherever you want (currently only supported once per page)
 
 ## Getting automatic updates
 
-This plugin can be updated directly from GitHub, using the Wordpress plugin [GitHub Updater](https://github.com/afragen/github-updater).
+This plugin can be updated directly from GitHub, in the Wordpress UI, using the Wordpress plugin [GitHub Updater](https://github.com/afragen/github-updater).
 
 ### Settings
 
@@ -76,6 +76,12 @@ Fork, branch, pull request
 ## Contributors
 
 * [tom](https://github.com/Maniae) - has implemented awesome richtext support for api.ai in [#42](https://github.com/krilor/wp-chatbot/pull/42)!
+
+## Release Notes
+
+* **0.1.1** - bug fixes
+  * api.ai encoding
+  * allow unsafe urls
 
 ## Wordpress Coding Standards
 
