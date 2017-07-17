@@ -246,7 +246,7 @@ class WP_Chatbot_Request {
 
 
 		$special_values = apply_filters( 'wp_chatbot_special_values', array(
-			'WP_CHATBOT_INPUT_MSG' => utf8_decode($message),
+			'WP_CHATBOT_INPUT_MSG' => $message,
 			'WP_CHATBOT_CONV' => $conv,
 			'WP_CHATBOT_USER' => $user
 		));
