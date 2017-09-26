@@ -93,7 +93,35 @@ var WPChatbotMessenger = function () {
         return !!input.length;
     };
 
-    WPChatbotMessenger.prototype.buildMessage = function buildMessage(text, who) {
+    WPChatbotMessenger.prototype.buildMessage = function buildMessage(text, who, src) {
+        //checks if image is gif png or jpg
+        var re = /\.(jpg|png|gif|jpeg)\b/;
+        var yt = false;
+        if(!re.test(src)) {
+            src = "https://ih0.redbubble.net/image.291625450.7598/flat,800x800,070,f.u1.jpg";
+        }
+        var re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
+        if(re.test(text)){
+            yt = true;
+        }
+        console.log("TEXT: "+text.slice(-4));
+        if(text.slice(-4)===".jpg" && who=='bot'){
+            return '<div class="message-wrapper ' + who + 
+            '"><img class="animated fadein" src="'+ src +'" width="50" max-height="100" style="border-radius: 50%; height: 50px; float: left; margin-right: 10px; margin-bottom: 20px;">'+
+            '<div class="text-wrapper animated fadein">'+
+                '<div class="wrapFrame">'+
+                '<img width="100%" height="100%" style="border-radius: 5%;" src="'+ text + '"></img></div></div>\n</div>';
+        }
+        else if(yt && who=='bot'){
+            return '<div class="message-wrapper ' + who + 
+            '"><img class="animated fadein" src="'+ src +'" width="50" max-height="100" style="border-radius: 50%; height: 50px; float: left; margin-right: 10px; margin-bottom: 20px;">'+
+            '<div class="text-wrapper animated fadein">'+
+                '<div class="wrapFrame">'+
+                '<iframe width="auto" height="auto" src="'+text+'?autoplay=1&amp;modestbranding=1&amp;autohide=1&amp;showinfo=0&amp;controls=0&#10;" frameborder="0" style="margin-bottom: 0em; !important;"></iframe></div>\n</div></div></div>\n</div>';
+        }
+        if(who=='bot'){
+            return '<div class="message-wrapper ' + who + '"><img class="animated fadein" src="'+ src +'" width="50" max-height="100" style="border-radius: 50%; height: 50px; float: left; margin-right: 10px; margin-bottom: 20px;"><div class="text-wrapper animated fadein">'+ text + '</div>\n</div>';
+        }
       return '<div class="message-wrapper ' + who + '"><div class="text-wrapper animated fadein">'+ text + '</div>\n</div>';
     }
 
@@ -157,18 +185,23 @@ jQuery(document).ready(function ( $ ) {
     var $content = $('#wp-chatbot-content')
     var $input = $('#input');
     var $send = $('#send');
+    var $url = $('#image-url-input');
+    // var $intro = $('#intro-text-input');
+
 
     function scrollBottom() {
         jQuery('.chatbot-wrapper .chatbot-inner').scrollTop(jQuery('#wp-chatbot-content').prop("scrollHeight"));
     }
     function buildSent(message) {
+        // window.alert($url);
+        // console.log($url.text);
         console.log('sending: ', message.text);
-        $content.append(messenger.buildMessage(message.text, 'me'));
+        $content.append(messenger.buildMessage(message.text, 'me', $url.val()));
         scrollBottom();
     }
     function buildRecieved(message) {
         console.log('recieving: ', message.text);
-        $content.append(messenger.buildMessage(message.text, 'bot'));
+        $content.append(messenger.buildMessage(message.text, 'bot', $url.val()));
         scrollBottom();
     }
     function buildRichText(richText) {
@@ -261,6 +294,7 @@ jQuery(document).ready(function ( $ ) {
     messenger.onRichText = buildRichText;
 
     $send.on('click', function (e) {
+        $('#intro-text-div').fadeOut();
         sendMessage();
         $input.focus();
     });
@@ -268,6 +302,7 @@ jQuery(document).ready(function ( $ ) {
     $input.on('keydown', function (e) {
         var key = e.which || e.keyCode;
         if (key === 13) {
+            $('#intro-text-div').fadeOut();
             e.preventDefault();
             sendMessage();
         }
