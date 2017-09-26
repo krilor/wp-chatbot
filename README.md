@@ -1,6 +1,11 @@
 # WP chatbot
 
-A simple Wordpress plugin to connect to your favourite chatbot platform.
+Updated version of [wp-chatbot](krilor/wp-chatbot), simple Wordpress plugin to connect to your favourite chatbot platform.
+## V2 info - fr1sk update
+ * Editable bot image and default one
+ * Editable intro header message on chatbot
+ * Bot can send youtube videos
+ * Bot can send jpg, gif, png images
 
 Works with
  * [api.ai](http://api.ai)
