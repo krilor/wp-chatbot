@@ -156,6 +156,38 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 		);
 
 		add_settings_field(
+			'image-url',
+			__( 'Image URL', 'wp-chatbot' ),
+			array( $this, 'display_input_generic' ),
+			'wp-chatbot-options-general',
+			'wp-chatbot-section-general',
+			array(
+				'desc' => __( 'URL of image source (.jpg, .png .gif .jpeg)', 'wp-chatbot' ),
+				'id' => 'image-url',
+				'type' => 'text',
+				'setting' => 'wp-chatbot-options-general',
+				'classes' => 'regular-text'
+			)
+		);
+
+		add_settings_field(
+			'intro-text',
+			__( 'Intro text', 'wp-chatbot' ),
+			array( $this, 'display_input_generic' ),
+			'wp-chatbot-options-general',
+			'wp-chatbot-section-general',
+			array(
+				'desc' => __( 'Intro text will be desplyed when you open bot, before you start the conversation', 'wp-chatbot' ),
+				'id' => 'intro-text',
+				'type' => 'text',
+				'setting' => 'wp-chatbot-options-general',
+				'classes' => 'regular-text'
+			)
+		);
+
+
+
+		add_settings_field(
 			'chatbot-livechat',
 			__( 'Chatbot livechat', 'wp-chatbot' ),
 			array( $this, 'display_input_generic' ),
@@ -298,7 +330,7 @@ class WP_Chatbot_Admin extends WP_Chatbot_Admin_Base {
 
 			}
 
-		// Headers
+		Headers
 		add_settings_field(
 			'request-headers-num',
 			__( 'Number of request headers', 'wp-chatbot' ),

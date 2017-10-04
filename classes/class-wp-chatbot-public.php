@@ -109,11 +109,15 @@ class WP_Chatbot_Public {
 	public function chat_interface( $atts ) {
 		$options = get_option( 'wp-chatbot-options-general' );
 		$title = $options['chatbot-title'];
-
+		$imageSrc = $options['image-url'];
+		$introText = $options['intro-text'];
 		$html = '<div class="chatbot-wrapper">';
 			$html .= '<div class="chatbot-top"><div class="title">'.$title.'</div><div class="css-icon close"></div></div>';
-			#$html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
+			$html .= '<input type="hidden" id="image-url-input" value="'.$imageSrc.'" />';
+
+			// $html .= '<div class="info-box">Random html<div class="css-icon arrow-up"></div></div>';
 			$html .= '<div class="chatbot-inner">';
+				$html .=  '<div id="intro-text-div" style="text-align: center; margin: 10%; color: #565a5e">'.$introText.'</div>';
 				$html .= '<div class="chatbot-content" id="wp-chatbot-content"></div>';
 			$html .= '</div>';
 			$html .= '<div class="chatbot-bottom" id="bottom">';

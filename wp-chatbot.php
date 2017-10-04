@@ -3,20 +3,20 @@
  * WP Chatbot
  *
  * @package     WPChatbot
- * @author      Kristoffer Lorentsen
- * @copyright   2017 Kristoffer Lorentsen
+ * @author      fr1sk - Marko Jovanovic
+ * @copyright   fr1sk
  * @license     GPL-3.0
  *
  * @wordpress-plugin
  * Plugin Name: WP Chatbot
- * Plugin URI: https://github.com/krilor/wp-chatbot/
- * Description: Simple, yet powerful plugin to include any chatbot on your site
- * Version: 0.1.1
- * Author: Kristoffer Lorentsen
- * Author URI: https://lorut.no
+ * Plugin URI: http://fr1sk.github.io/
+ * Description: Plugin that helps you to add chatbot to your website
+ * Version: 0.2.0
+ * Author: fr1sk - Marko Jovanovic
+ * Author URI: http://fr1sk.github.io/
  * Text Domain: wp-chatbot
  * Domain Path: /languages
- * GitHub Plugin URI: https://github.com/krilor/wp-chatbot/
+ * GitHub Plugin URI: http://fr1sk.github.io/
  * GitHub Branch: master
  */
 
